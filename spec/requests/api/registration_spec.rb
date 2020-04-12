@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 RSpec.describe 'POST /api/auth', type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
   describe 'with valid credentials' do
     before do
       post '/api/auth',
-          params: {
-            email: 'user@mail.com',
-            password: 'password',
-            password_confirmation: 'password'
-          },
-          headers: headers
+        params: {
+          email: 'user@mail.com',
+          password: 'password',
+          password_confirmation: 'password'
+        },
+        headers: headers
     end
 
     it 'returns a 200 response status' do
@@ -25,12 +27,12 @@ RSpec.describe 'POST /api/auth', type: :request do
     describe 'a non-matching password confirmation' do
       before do
         post '/api/auth',
-            params: {
-              email: 'user@mail.com',
-              password: 'password',
-              password_confirmation: 'wrong_password'
-            },
-            headers: headers
+          params: {
+            email: 'user@mail.com',
+            password: 'password',
+            password_confirmation: 'wrong_password'
+          },
+          headers: headers
       end
 
       it 'returns a 422 response status' do
@@ -45,12 +47,12 @@ RSpec.describe 'POST /api/auth', type: :request do
     describe 'an invalid email address' do
       before do
         post '/api/auth',
-            params: {
-              email: 'user@mail',
-              password: 'password',
-              password_confirmation: 'password'
-            },
-            headers: headers
+          params: {
+            email: 'user@mail',
+            password: 'password',
+            password_confirmation: 'password'
+          },
+          headers: headers
       end
 
       it 'returns a 422 response status' do
@@ -67,12 +69,12 @@ RSpec.describe 'POST /api/auth', type: :request do
 
       before do
         post '/api/auth',
-            params: {
-              email: 'otherUser@mail.com',
-              password: 'password',
-              password_confirmation: 'password'
-            },
-            headers: headers
+          params: {
+            email: 'otherUser@mail.com',
+            password: 'password',
+            password_confirmation: 'password'
+          },
+          headers: headers
       end
 
       it 'returns a 422 response status' do

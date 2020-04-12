@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe 'POST /api/auth/sign_in', type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
-  let(:user)  { create(:user, role: 'admin') } 
+  let(:user) { create(:user, role: 'admin') }
   let(:expected_response) do
     {
       'data' => {
@@ -17,8 +19,8 @@ RSpec.describe 'POST /api/auth/sign_in', type: :request do
   describe 'with valid credentials' do
     before do
       post '/api/auth/sign_in',
-           params: { email: user.email, password: user.password },
-           headers: headers
+        params: { email: user.email, password: user.password },
+        headers: headers
     end
 
     it 'returns a 200 response status' do
@@ -33,8 +35,8 @@ RSpec.describe 'POST /api/auth/sign_in', type: :request do
   describe 'with invalid password' do
     before do
       post '/api/auth/sign_in',
-           params: { email: user.email, password: 'wrongpassword' },
-           headers: headers
+        params: { email: user.email, password: 'wrongpassword' },
+        headers: headers
     end
 
     it 'returns 401 response status' do
@@ -43,16 +45,16 @@ RSpec.describe 'POST /api/auth/sign_in', type: :request do
 
     it 'returns error message' do
       expect(response_json['errors']).to eq [
-           'Invalid login credentials. Please try again.'
-         ]
+        'Invalid login credentials. Please try again.'
+      ]
     end
   end
 
   describe 'with invalid email' do
     before do
       post '/api/auth/sign_in',
-           params: { email: 'wrong@mail.com', password: user.password },
-           headers: headers
+        params: { email: 'wrong@mail.com', password: user.password },
+        headers: headers
     end
 
     it 'returns 401 response status' do
@@ -61,8 +63,8 @@ RSpec.describe 'POST /api/auth/sign_in', type: :request do
 
     it 'returns error message' do
       expect(response_json['errors']).to eq [
-           'Invalid login credentials. Please try again.'
-         ]
+        'Invalid login credentials. Please try again.'
+      ]
     end
   end
 end
