@@ -1,4 +1,5 @@
-# frozen_string_literal: true
+require 'coveralls'
+Coveralls.wear_merged!('rails')
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -22,6 +23,4 @@ RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
   config.include ResponseJSON
 end
-FactoryBot::SyntaxRunner.class_eval do
-  include ActionDispatch::TestProcess
-end
+FactoryBot::SyntaxRunner.class_eval { include ActionDispatch::TestProcess }
