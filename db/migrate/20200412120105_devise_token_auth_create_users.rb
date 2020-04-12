@@ -30,7 +30,6 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
 
       ## User Info
       t.string :name
-      t.string :image
       t.string :email
       t.integer :sign_in_count, default: 0
       t.datetime :current_sign_in_at
