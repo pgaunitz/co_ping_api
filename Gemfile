@@ -13,6 +13,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
+  gem 'rspec-rails'
 end
 
 group :development do
