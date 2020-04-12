@@ -1,0 +1,2 @@
+class Coop < ApplicationRecord
+end
