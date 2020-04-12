@@ -7,8 +7,7 @@ RSpec.describe 'POST /api/auth', type: :request do
           params: {
             email: 'user@mail.com',
             password: 'password',
-            password_confirmation: 'password',
-            role: 'admin'
+            password_confirmation: 'password'
           },
           headers: headers
     end

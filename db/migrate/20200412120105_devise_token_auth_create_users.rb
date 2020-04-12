@@ -12,7 +12,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       ## Recoverable
       t.string :reset_password_token
       t.datetime :reset_password_sent_at
-      t.boolean :allow_password_change, default: false
+      t.boolean :allow_password_change, default: true
 
       ## Rememberable
       t.datetime :remember_created_at
@@ -37,7 +37,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.datetime :last_sign_in_at
       t.string :current_sign_in_ip
       t.string :last_sign_in_ip
-      t.integer :role
+      t.integer :role, default: 1
 
       ## Tokens
       t.json :tokens
