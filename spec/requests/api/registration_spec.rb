@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe 'POST /api/auth', type: :request do
+RSpec.describe 'POST /auth', type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
   describe 'with valid credentials' do
     before do
-      post '/api/auth',
+      post '/auth',
         params: {
           email: 'user@mail.com',
           password: 'password',
@@ -26,7 +26,7 @@ RSpec.describe 'POST /api/auth', type: :request do
   context 'when a user submits' do
     describe 'a non-matching password confirmation' do
       before do
-        post '/api/auth',
+        post '/auth',
           params: {
             email: 'user@mail.com',
             password: 'password',
@@ -46,7 +46,7 @@ RSpec.describe 'POST /api/auth', type: :request do
 
     describe 'an invalid email address' do
       before do
-        post '/api/auth',
+        post '/auth',
           params: {
             email: 'user@mail',
             password: 'password',
@@ -68,7 +68,7 @@ RSpec.describe 'POST /api/auth', type: :request do
       let!(:registered_user) { create(:user, email: 'otherUser@mail.com') }
 
       before do
-        post '/api/auth',
+        post '/auth',
           params: {
             email: 'otherUser@mail.com',
             password: 'password',
