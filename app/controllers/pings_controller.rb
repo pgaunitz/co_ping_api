@@ -9,6 +9,11 @@ class PingsController < ApplicationController
     end
   end
 
+  def index
+    pings = Ping.all.where(active: true)
+    render json: pings, each_serializer: PingIndexSerializer
+  end
+
   private
 
   def ping_params
