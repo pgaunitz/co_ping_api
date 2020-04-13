@@ -8,6 +8,7 @@ RSpec.describe Ping, type: :model do
   describe 'Database table' do
     it { is_expected.to have_db_column :time }
     it { is_expected.to have_db_column :store }
+    it { is_expected.to belong_to :user}
   end
   describe 'Validations' do
     it { is_expected.to validate_presence_of :time }
