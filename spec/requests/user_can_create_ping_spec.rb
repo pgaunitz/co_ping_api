@@ -55,7 +55,7 @@ RSpec.describe 'post /pings', type: :request do
     it 'returns a 422 response status' do
       expect(response).to have_http_status 422
     end
-    it 'returns success message' do
+    it 'returns error message' do
       expect(response_json['message']).to eq 'You need to set a time for your new trip'
     end
   end
