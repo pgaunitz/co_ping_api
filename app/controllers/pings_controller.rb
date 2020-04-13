@@ -1,7 +1,7 @@
 class PingsController < ApplicationController
   def create
     ping = Ping.create(ping_params)
-    render json: { message: 'Your trip is now active'}
+    render json: { message: 'Your new trip is now active'}
   end
 
   private
