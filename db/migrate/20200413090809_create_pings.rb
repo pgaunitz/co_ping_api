@@ -4,6 +4,7 @@ class CreatePings < ActiveRecord::Migration[6.0]
       t.datetime :time
       t.string :store
       t.boolean :active, default: true
+      
       t.timestamps
     end
   end
