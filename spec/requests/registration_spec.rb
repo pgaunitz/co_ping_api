@@ -8,6 +8,7 @@ RSpec.describe 'POST /auth', type: :request do
       post '/auth',
         params: {
           email: 'user@mail.com',
+          name: 'Betty',
           password: 'password',
           password_confirmation: 'password'
         },
@@ -84,6 +85,26 @@ RSpec.describe 'POST /auth', type: :request do
       it 'returns an error message' do
         expect(response_json['errors']['email']).to eq ['has already been taken']
       end
+    end
+  end
+  describe 'an invalid email address' do
+    before do
+      post '/auth',
+        params: {
+          email: 'user@mail',
+          password: 'password',
+          password_confirmation: 'password',
+          name: ''
+        },
+        headers: headers
+    end
+
+    it 'returns a 422 response status' do
+      expect(response).to have_http_status 422
+    end
+
+    it 'returns an error message' do
+      expect(response_json['errors']['name']).to eq ["can't be blank"]
     end
   end
 end
