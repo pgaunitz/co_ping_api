@@ -9,6 +9,15 @@ class PingsController < ApplicationController
     end
   end
 
+  def index
+    pings = Ping.all.where(active: true)
+    if pings.length > 0
+      render json: pings, each_serializer: PingIndexSerializer
+    else
+      render json: { message: "Unfortunately no one has planned to go shopping, so maybe you can?" }
+    end
+  end
+
   private
 
   def ping_params
