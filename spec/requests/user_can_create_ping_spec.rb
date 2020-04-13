@@ -5,8 +5,11 @@ RSpec.describe 'post /pings', type: :request do
     before do
       post '/pings',
         params: {
-          time: "2020-04-31-15:00",
-          store: "ica"
+          ping: {
+            time: "2020-04-31-15:00",
+            store: "ica"
+          }
+         
         },
         headers: headers
     end
