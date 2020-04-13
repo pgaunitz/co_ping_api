@@ -1,4 +1,6 @@
 class PingsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     ping = Ping.create(ping_params)
     if ping.persisted?
