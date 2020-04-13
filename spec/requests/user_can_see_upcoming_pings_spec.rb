@@ -9,12 +9,12 @@ RSpec.describe 'GET /pings', type: :request do
     end
 
     describe 'user can see upcoming pings' do
-      let!(:pings) { create(:ping, time: '2020-04-14 14:00', store: 'Coop') }
+      let!(:pings) { create(:ping, time: '2020-04-14 14:00', store: 'Coop', user_id: user.id) }
       let!(:pings2) do
-        create(:ping, time: '2020-04-14 10:00', store: 'Systembolaget')
+        create(:ping, time: '2020-04-14 10:00', store: 'Systembolaget', user_id: user.id)
       end
       let!(:pings3) do
-        create(:ping, time: '2020-04-12 15:00', store: 'Ica', active: false)
+        create(:ping, time: '2020-04-12 15:00', store: 'Ica', active: false, user_id: user.id)
       end
       before { get '/pings', headers: user_headers }
 
@@ -33,11 +33,15 @@ RSpec.describe 'GET /pings', type: :request do
       it 'does not see pings that are not active' do
         expect(response_json['pings'].last['time']).to eq '2020-04-14 10:00'
       end
+
+      it 'return name of ping creator' do
+        expect(response_json['pings'].first['user_name']).to eq 'Betty'
+      end
     end
 
     describe 'receives message if there are no pings' do
       let!(:pings) do
-        create(:ping, time: '2020-04-14 14:00', store: 'Coop', active: false)
+        create(:ping, time: '2020-04-14 14:00', store: 'Coop', active: false, user_id: user.id)
       end
 
       before { get '/pings', headers: user_headers }
