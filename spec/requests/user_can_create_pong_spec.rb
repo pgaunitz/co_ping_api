@@ -92,6 +92,54 @@ RSpec.describe 'POST /pongs', type: :request do
       end
     end
 
-  
+    describe 'cannot create pong without items' do
+      let(:ping) { create(:ping) }
+      before do
+        post '/pongs',
+             params:
+             { pong:
+              {
+                item1: nil,
+                item2: nil,
+                item3: nil,
+                ping_id: ping.id,
+                user_id: user.id
+              } },
+             headers: user_headers
+      end
+
+      it 'returns response status 422' do
+        expect(response.status).to eq 422
+      end
+
+      it 'cannot create pong to inactive ping' do
+        expect(response_json['message']).to eq 'You have to specify what items you need'
+      end
+    end
+
+  describe 'cannot create pong without ping id' do
+      let(:ping) { create(:ping) }
+      before do
+        post '/pongs',
+             params:
+             { pong:
+              {
+                item1: 'Bacon',
+                item2: nil,
+                item3: nil,
+                ping_id: nil,
+                user_id: user.id
+              } },
+             headers: user_headers
+      end
+
+      it 'returns response status 422' do
+        expect(response.status).to eq 422
+      end
+
+      it 'cannot create pong to inactive ping' do
+        expect(response_json['message']).to eq 'Something went wrong, better luck next time!'
+      end
+    end
   end
 end
