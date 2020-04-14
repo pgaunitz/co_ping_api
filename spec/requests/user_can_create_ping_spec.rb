@@ -11,7 +11,7 @@ RSpec.describe 'post /pings', type: :request do
     describe 'user POST a ping' do
       before do
         post '/pings',
-             params: { ping: { time: '2020-04-31-15:00', store: 'ica' } },
+             params: { ping: { time: '2020-04-31-15:00', store: 'ica', user_id: user.id } },
              headers: user_headers
       end
 
@@ -26,7 +26,7 @@ RSpec.describe 'post /pings', type: :request do
     describe 'user POST a ping without store' do
       before do
         post '/pings',
-             params: { ping: { time: '2020-04-31-15:00' } },
+             params: { ping: { time: '2020-04-31-15:00', user_id: user.id } },
              headers: user_headers
       end
 
@@ -40,7 +40,8 @@ RSpec.describe 'post /pings', type: :request do
 
     describe 'user POST a ping without time' do
       before do
-        post '/pings', params: { ping: { store: 'Ica' } }, headers: user_headers
+        post '/pings', params: { ping: { store: 'Ica', user_id: user.id } }, 
+        headers: user_headers
       end
       it 'returns a 422 response status' do
         expect(response).to have_http_status 422
@@ -64,7 +65,7 @@ RSpec.describe 'post /pings', type: :request do
       expect(response).to have_http_status 401
     end
     it 'returns success message' do
-      expect(response_json['errors'].first).to eq "You need to sign in or sign up before continuing."
+      expect(response_json['errors'].first).to eq 'You need to sign in or sign up before continuing.'
     end
   end
 end

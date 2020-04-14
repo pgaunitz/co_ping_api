@@ -23,6 +23,6 @@ class PingsController < ApplicationController
   private
 
   def ping_params
-    params.require(:ping).permit(:time, :store)
+    params.require(:ping).permit(:time, :store, :user_id)
   end
 end
