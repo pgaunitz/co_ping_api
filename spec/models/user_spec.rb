@@ -14,6 +14,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many :pings }
     it { is_expected.to have_many :pongs }
   end
+  
   describe 'Validations' do
     it { is_expected.to validate_presence_of :email }
     it { is_expected.to validate_presence_of :role }

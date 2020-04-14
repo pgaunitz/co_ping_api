@@ -14,6 +14,7 @@ RSpec.describe Pong, type: :model do
     it { is_expected.to belong_to :user}
     it { is_expected.to belong_to :ping}
   end
+  
   describe 'Validations' do
     it { is_expected.to validate_presence_of :item1 }
   end
