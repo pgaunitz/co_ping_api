@@ -177,6 +177,39 @@ RSpec.describe 'POST /pongs', type: :request do
     end
   end
 
+  describe 'can only have one active pong' do
+    let(:user) { create(:user, role: 'user') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+    let!(:pong) { create(:pong, user: user)}
+    let(:ping) { create(:ping) }
+    before do
+      post '/pongs',
+           params: {
+             pong: {
+               item1: 'Bacon',
+               item2: nil,
+               item3: nil,
+               ping_id: ping.id,
+               user_id: user.id
+             }
+           },
+           headers: user_headers
+    end
+
+    it 'returns response status 422' do
+      expect(response.status).to eq 422
+    end
+
+    it 'cannot create several pongs' do
+      expect(
+        response_json['message']
+      ).to eq 'You can only have one active request'
+    end
+  end
+
   describe 'without valid credentials' do
     let(:ping) { create(:ping) }
     let(:headers) { { HTTP_ACCEPT: 'application/json' } }
@@ -188,7 +221,6 @@ RSpec.describe 'POST /pongs', type: :request do
                item2: 'Butter',
                item3: 'Schampoo',
                ping_id: ping.id
-               
              }
            },
            headers: headers
@@ -197,7 +229,9 @@ RSpec.describe 'POST /pongs', type: :request do
       expect(response).to have_http_status 401
     end
     it 'returns success message' do
-      expect(response_json['errors'].first).to eq 'You need to sign in or sign up before continuing.'
+      expect(
+        response_json['errors'].first
+      ).to eq 'You need to sign in or sign up before continuing.'
     end
   end
 end

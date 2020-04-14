@@ -4,7 +4,9 @@ class PongsController < ApplicationController
   before_action :authenticate_user!
   def create
     if !pong_params['ping_id'].nil? && !pong_params['user_id'].nil?
-      if Ping.all.find(pong_params['ping_id']).active
+      if have_active_pongs
+        error_handler('You can only have one active request')
+      elsif Ping.all.find(pong_params['ping_id']).active
         pong_creator
       else
         error_handler('This trip is no longer active')
@@ -18,6 +20,11 @@ class PongsController < ApplicationController
 
   def pong_params
     params.require(:pong).permit(:item1, :item2, :item3, :user_id, :ping_id)
+  end
+
+  def have_active_pongs
+      active_pong = Pong.all.where('user_id'==(pong_params['user_id']))
+      active_pong.any? ? active_pong.first.active : false
   end
 
   def pong_creator
