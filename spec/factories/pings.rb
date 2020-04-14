@@ -3,5 +3,6 @@ FactoryBot.define do
     time { "2020-04-13 11:08:09" }
     store { "Ica" }
     association :user, factory: :user
+    
   end
 end

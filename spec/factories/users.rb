@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     role { 'user' }
-    email { 'admin@mail.com' }
+    email { "user#{rand(1...9999)}@mail.com" }
     password { 'password' }
     password_confirmation { 'password' }
     name { 'Betty' }
@@ -9,4 +9,5 @@ FactoryBot.define do
   factory :admin do
     role { 'admin' }
   end
+   
 end
