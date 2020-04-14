@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   validates_presence_of :role, :name
   enum role: [ :admin, :user ]
   has_many :pings
+  has_many :pongs
 end
