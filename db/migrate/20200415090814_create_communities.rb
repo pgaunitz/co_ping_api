@@ -8,7 +8,7 @@ class CreateCommunities < ActiveRecord::Migration[6.0]
     end
 
     change_table :users do |t|
-      t.belongs_to :community, null: false, foreign_key: true, default: 1
+      t.belongs_to :community, null: false, foreign_key: true
       t.integer :community_status, default: 0
     end
   end

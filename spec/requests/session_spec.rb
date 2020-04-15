@@ -7,6 +7,7 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
     { HTTP_ACCEPT: 'application/json' }.merge!(admin_credentials)
   end
 
+  # let(:community) { create(:community) }
   let(:user) { create(:user, role: 'user') }
   let(:user_credentials) { user.create_new_auth_token }
   let(:user_headers) do
@@ -23,7 +24,9 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
           'provider' => 'email',
           'allow_password_change' => true,
           'role' => 'admin',
-          'name' => admin.name
+          'name' => admin.name,
+          'community_id' => admin.community.id,
+          'community_status' => 'accepted'
         }
       }
     end
@@ -53,7 +56,9 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
           'provider' => 'email',
           'allow_password_change' => true,
           'role' => 'user',
-          'name' => user.name
+          'name' => user.name,
+          'community_id' => user.community.id,
+          'community_status' => 'accepted'
         }
       }
     end

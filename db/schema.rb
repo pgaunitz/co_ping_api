@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_090814) do
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "community_id", default: 1, null: false
+    t.bigint "community_id", null: false
     t.integer "community_status", default: 0
     t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
