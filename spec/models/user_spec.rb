@@ -15,8 +15,10 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :name }
     it { is_expected.to have_db_column :tokens }
     it { is_expected.to have_db_column :role}
+    it { is_expected.to have_db_column :community_status}
     it { is_expected.to have_many :pings }
     it { is_expected.to have_many :pongs }
+    it { is_expected.to belong_to :community }
   end
   
   describe 'Validations' do
