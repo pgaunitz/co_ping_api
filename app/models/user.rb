@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   validates_presence_of :role, :name
   enum role: [ :admin, :user ]
+  enum community_status: [ :pending, :accepted, :rejected ]
   has_many :pings
   has_many :pongs
+  belongs_to :community
 end

@@ -4,13 +4,14 @@ RSpec.describe 'POST /auth', type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
   describe 'with valid credentials' do
+    let!(:community) { create(:community)}
     before do
       post '/auth',
         params: {
           email: 'user@mail.com',
           name: 'Betty',
           password: 'password',
-          password_confirmation: 'password'
+          password_confirmation: 'password',
         },
         headers: headers
     end
@@ -46,6 +47,7 @@ RSpec.describe 'POST /auth', type: :request do
     end
 
     describe 'an invalid email address' do
+      let!(:community) { create(:community)}
       before do
         post '/auth',
           params: {
@@ -87,6 +89,7 @@ RSpec.describe 'POST /auth', type: :request do
       end
     end
   end
+
   describe 'an invalid email address' do
     before do
       post '/auth',

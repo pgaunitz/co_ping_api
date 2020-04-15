@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_092504) do
+ActiveRecord::Schema.define(version: 2020_04_15_090814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "communities", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "pings", force: :cascade do |t|
     t.datetime "time"
@@ -61,6 +68,9 @@ ActiveRecord::Schema.define(version: 2020_04_14_092504) do
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "community_id", default: 1, null: false
+    t.integer "community_status", default: 0
+    t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -70,4 +80,5 @@ ActiveRecord::Schema.define(version: 2020_04_14_092504) do
   add_foreign_key "pings", "users"
   add_foreign_key "pongs", "pings"
   add_foreign_key "pongs", "users"
+  add_foreign_key "users", "communities"
 end

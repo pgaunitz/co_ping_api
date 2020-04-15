@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     role { 'user' }
@@ -5,9 +7,11 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
     name { 'Betty' }
+    community_status { 'accepted' }
+    association :community, factory: :community
+    
+    factory :admin do
+      role { 'admin' }
+    end
   end
-  factory :admin do
-    role { 'admin' }
-  end
-   
 end
