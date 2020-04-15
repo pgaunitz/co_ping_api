@@ -225,9 +225,11 @@ RSpec.describe 'POST /pongs', type: :request do
            },
            headers: headers
     end
+    
     it 'returns a 401 response status' do
       expect(response).to have_http_status 401
     end
+
     it 'returns success message' do
       expect(
         response_json['errors'].first

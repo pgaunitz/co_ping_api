@@ -5,14 +5,20 @@ RSpec.describe User, type: :model do
     expect(create(:user)).to be_valid
   end
 
+  it 'should have valid Factory' do
+    expect(create(:admin)).to be_valid
+  end
+
   describe 'Database table' do
     it { is_expected.to have_db_column :encrypted_password }
     it { is_expected.to have_db_column :email }
     it { is_expected.to have_db_column :name }
     it { is_expected.to have_db_column :tokens }
     it { is_expected.to have_db_column :role}
+    it { is_expected.to have_db_column :community_status}
     it { is_expected.to have_many :pings }
     it { is_expected.to have_many :pongs }
+    it { is_expected.to belong_to :community }
   end
   
   describe 'Validations' do

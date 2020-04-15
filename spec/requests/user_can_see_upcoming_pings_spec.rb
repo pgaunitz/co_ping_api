@@ -53,6 +53,7 @@ RSpec.describe 'GET /pings', type: :request do
       end
     end
   end
+  
   describe 'without valid credentials' do
     let(:headers) { { HTTP_ACCEPT: 'application/json' } }
     before { get '/pings', headers: headers }
