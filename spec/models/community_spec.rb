@@ -4,7 +4,6 @@ RSpec.describe Community, type: :model do
   it 'should have valid Factory' do
     expect(create(:community)).to be_valid
   end
-
   describe 'Database table' do
     it { is_expected.to have_db_column :code }
     it { is_expected.to have_db_column :name }
