@@ -7,7 +7,6 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
     { HTTP_ACCEPT: 'application/json' }.merge!(admin_credentials)
   end
 
-  # let(:community) { create(:community) }
   let(:user) { create(:user, role: 'user') }
   let(:user_credentials) { user.create_new_auth_token }
   let(:user_headers) do

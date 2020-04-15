@@ -18,6 +18,7 @@ RSpec.describe 'GET /communities' do
       expect(response_json['community_id']).to eq Community.second.id
     end
   end
+  
   describe 'unsuccessfully sends community code' do
     before do
       get '/communities',

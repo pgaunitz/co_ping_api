@@ -18,6 +18,7 @@ RSpec.describe 'post /pings', type: :request do
       it 'returns a 200 response status' do
         expect(response).to have_http_status 200
       end
+      
       it 'returns success message' do
         expect(response_json['message']).to eq 'Your new trip is now active'
       end
@@ -33,6 +34,7 @@ RSpec.describe 'post /pings', type: :request do
       it 'returns a 200 response status' do
         expect(response).to have_http_status 200
       end
+
       it 'returns success message' do
         expect(response_json['message']).to eq 'Your new trip is now active'
       end
@@ -43,9 +45,11 @@ RSpec.describe 'post /pings', type: :request do
         post '/pings', params: { ping: { store: 'Ica', user_id: user.id } }, 
         headers: user_headers
       end
+
       it 'returns a 422 response status' do
         expect(response).to have_http_status 422
       end
+
       it 'returns error message' do
         expect(
           response_json['message']
@@ -61,9 +65,11 @@ RSpec.describe 'post /pings', type: :request do
            params: { ping: { time: '2020-04-31-15:00', store: 'ica' } },
            headers: headers
     end
+
     it 'returns a 401 response status' do
       expect(response).to have_http_status 401
     end
+
     it 'returns success message' do
       expect(response_json['errors'].first).to eq 'You need to sign in or sign up before continuing.'
     end
