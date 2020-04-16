@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class CommunitiesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :is_user_admin, only: :update
+  before_action :authenticate_user!, only: [:update]
+  before_action :is_user_admin, only: [:update]
   def index
     id = Community.all.select { |community| community.code == params['q'] }.first.id
     render json: { community_id: id }
@@ -17,8 +17,8 @@ class CommunitiesController < ApplicationController
     else
       update_user_community_status
       render json: { message: 'User is now rejected from your community' }
+    end
   end
-end
 
   private
 
