@@ -6,9 +6,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
   validates_presence_of :role, :name
-  enum role: [ :admin, :user ]
-  enum community_status: [ :pending, :accepted, :rejected ]
+  enum role: %i[admin user]
+  enum community_status: %i[pending accepted rejected]
   has_many :pings
   has_many :pongs
   belongs_to :community
+
+  def has_active_pongs?
+    pongs.any?(&:active)
+  end
 end
