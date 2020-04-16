@@ -26,9 +26,6 @@ RSpec.describe 'GET /communities' do
         q: '123456789102'
       }
     end
-    it 'retruns 422 response' do
-      expect(response.status).to eq 422
-    end
 
     it 'returns correct community id' do
       expect(response_json['message']).to eq 'There is unfortunately no community with this code, did you type it correctly?'

@@ -46,10 +46,6 @@ RSpec.describe 'post /pings', type: :request do
         headers: user_headers
       end
 
-      it 'returns a 422 response status' do
-        expect(response).to have_http_status 422
-      end
-
       it 'returns error message' do
         expect(
           response_json['message']

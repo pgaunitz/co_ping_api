@@ -25,7 +25,7 @@ RSpec.describe 'POST /pongs', type: :request do
       end
 
       it 'returns response status 200' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status 200
       end
 
       it 'successfully creates pong' do
@@ -56,7 +56,7 @@ RSpec.describe 'POST /pongs', type: :request do
       end
 
       it 'returns response status 200' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status 200
       end
 
       it 'successfully creates pong' do
@@ -86,10 +86,6 @@ RSpec.describe 'POST /pongs', type: :request do
              headers: user_headers
       end
 
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
-      end
-
       it 'cannot create pong to inactive ping' do
         expect(response_json['message']).to eq 'This trip is no longer active'
       end
@@ -109,10 +105,6 @@ RSpec.describe 'POST /pongs', type: :request do
                }
              },
              headers: user_headers
-      end
-
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
       end
 
       it 'cannot create pong to inactive ping' do
@@ -138,10 +130,6 @@ RSpec.describe 'POST /pongs', type: :request do
              headers: user_headers
       end
 
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
-      end
-
       it 'cannot create pong to inactive ping' do
         expect(
           response_json['message']
@@ -163,10 +151,6 @@ RSpec.describe 'POST /pongs', type: :request do
                }
              },
              headers: user_headers
-      end
-
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
       end
 
       it 'cannot create pong to inactive ping' do
@@ -197,10 +181,6 @@ RSpec.describe 'POST /pongs', type: :request do
              }
            },
            headers: user_headers
-    end
-
-    it 'returns response status 422' do
-      expect(response.status).to eq 422
     end
 
     it 'cannot create several pongs' do
