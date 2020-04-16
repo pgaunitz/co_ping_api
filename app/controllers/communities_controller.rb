@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommunitiesController < ApplicationController
   def index
     id = Community.all.select { |community| community.code == params['q'] }.first.id

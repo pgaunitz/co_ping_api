@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class PingsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     ping = Ping.create(ping_params)
     if ping.persisted?
@@ -12,10 +14,10 @@ class PingsController < ApplicationController
 
   def index
     pings = Ping.all.where(active: true)
-    if pings.length > 0
+    if !pings.empty?
       render json: pings, each_serializer: PingIndexSerializer
     else
-      render json: { message: "Unfortunately no one has planned to go shopping, so maybe you can?" }
+      render json: { message: 'Unfortunately no one has planned to go shopping, so maybe you can?' }
     end
   end
 
