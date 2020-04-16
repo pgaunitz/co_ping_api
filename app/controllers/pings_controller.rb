@@ -6,8 +6,7 @@ class PingsController < ApplicationController
     if ping.persisted?
       render json: { message: 'Your new trip is now active' }
     else
-      render json: { message: 'You need to set a time for your new trip' },
-             status: 422
+      render json: { message: 'You need to set a time for your new trip' }
     end
   end
 

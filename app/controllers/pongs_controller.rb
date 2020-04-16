@@ -37,6 +37,6 @@ class PongsController < ApplicationController
   end
 
   def error_handler(error)
-    render json: { message: error }, status: 422
+    render json: { message: error }
   end
 end
