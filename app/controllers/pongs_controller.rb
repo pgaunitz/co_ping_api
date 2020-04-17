@@ -6,7 +6,7 @@ class PongsController < ApplicationController
   before_action :verify_ping_and_user, only: [:create]
   before_action :get_pong_owner, only: [:create]
   before_action :get_ping, only: [:create]
-  
+
   def create
     if @pong_owner.has_active_pongs?
       render_error('You can only have one active request')
