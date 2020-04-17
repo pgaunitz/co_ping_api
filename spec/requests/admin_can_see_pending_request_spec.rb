@@ -20,12 +20,12 @@ RSpec.describe 'GET /communities', type: :request do
     end
 
     it 'returns success message' do
-      expect(response_json['message']).to eq 'User is now accepted to your community'
+      expect(response_json['requests'].count).to eq 2
     end
 
-    it 'admin can accept user admission' do
-      expect(User.all.find(user.id).community_status).to eq 'accepted'
-    end
+    # it 'admin can accept user admission' do
+    #   expect(User.all.find(user.id).community_status).to eq 'accepted'
+    # end
   end 
 
 

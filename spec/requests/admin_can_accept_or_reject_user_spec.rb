@@ -14,7 +14,7 @@ RSpec.describe 'PUT /communities', type: :request do
   end
   describe 'admin can accept user to community' do
     before do
-      put "/communities/#{community.id}",
+      put "/admin/communities/#{community.id}",
           params: {
             user_admission: {
               community_id: community.id,
@@ -40,7 +40,7 @@ RSpec.describe 'PUT /communities', type: :request do
 
   describe 'admin can reject user to community' do
     before do
-      put "/communities/#{community.id}",
+      put "/admin/communities/#{community.id}",
           params: {
             user_admission: {
               community_id: community.id,
@@ -62,7 +62,7 @@ RSpec.describe 'PUT /communities', type: :request do
 
   describe 'only admin can change community status' do
     before do
-      put "/communities/#{community.id}",
+      put "/admin/communities/#{community.id}",
           params: {
             user_admission: {
               community_id: community.id,
