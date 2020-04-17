@@ -2,6 +2,7 @@
 
 class PingsController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_part_of_community?
 
   def create
     ping = Ping.create(ping_params)
@@ -25,5 +26,13 @@ class PingsController < ApplicationController
 
   def ping_params
     params.require(:ping).permit(:time, :store, :user_id)
+  end
+
+  def is_part_of_community?
+    if current_user.community_status == 'accepted'
+    else
+      render json: { message: 'You are not part of a community yet, ask your admin for more information' },
+      status: 401
+    end
   end
 end

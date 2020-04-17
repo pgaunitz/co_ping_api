@@ -2,7 +2,7 @@
 
 RSpec.describe 'POST /pongs', type: :request do
   describe 'with valid credentials' do
-    let(:user) { create(:user, role: 'user') }
+    let(:user) { create(:user, role: 'user', community_status: 'accepted') }
     let(:user_credentials) { user.create_new_auth_token }
     let(:user_headers) do
       { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
@@ -184,6 +184,38 @@ RSpec.describe 'POST /pongs', type: :request do
       expect(
         response_json['message']
       ).to eq 'You can only have one active request'
+    end
+  end
+
+  describe 'can only have one active pong' do
+    let(:user) { create(:user, role: 'user', community_status: 'pending') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+    let(:ping) { create(:ping) }
+    before do
+      post '/pongs',
+           params: {
+             pong: {
+               item1: 'Bacon',
+               item2: '',
+               item3: '',
+               ping_id: ping.id,
+               user_id: user.id
+             }
+           },
+           headers: user_headers
+    end
+
+    it 'returns a 401 response status' do
+      expect(response).to have_http_status 401
+    end
+
+    it 'returns error message' do
+      expect(
+        response_json['message']
+      ).to eq 'You are not part of a community yet, ask your admin for more information'
     end
   end
 
