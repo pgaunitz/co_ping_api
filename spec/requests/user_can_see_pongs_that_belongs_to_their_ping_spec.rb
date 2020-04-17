@@ -28,5 +28,9 @@ RSpec.describe 'GET /pings/:id', type: :request do
     it 'returns ping with active pongs' do
       expect(response_json['ping']['pongs'].count).to eq 2
     end
+
+    it 'return name of pong owner' do
+      expect(response_json['ping']['pongs'].first['user_name']).to eq 'Betty'  
+    end
   end
 end
