@@ -2,7 +2,7 @@
 
 RSpec.describe 'post /pings', type: :request do
   describe 'with valid credentials' do
-    let(:user) { create(:user, role: 'user') }
+    let(:user) { create(:user, role: 'user', community_status: 'accepted') }
     let(:user_credentials) { user.create_new_auth_token }
     let(:user_headers) do
       { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
@@ -11,14 +11,14 @@ RSpec.describe 'post /pings', type: :request do
     describe 'user POST a ping' do
       before do
         post '/pings',
-             params: { ping: { time: '2020-04-31-15:00', store: 'ica', user_id: user.id } },
-             headers: user_headers
+          params: { ping: { time: '2020-04-31-15:00', store: 'ica', user_id: user.id } },
+          headers: user_headers
       end
 
       it 'returns a 200 response status' do
         expect(response).to have_http_status 200
       end
-      
+
       it 'returns success message' do
         expect(response_json['message']).to eq 'Your new trip is now active'
       end
@@ -27,8 +27,8 @@ RSpec.describe 'post /pings', type: :request do
     describe 'user POST a ping without store' do
       before do
         post '/pings',
-             params: { ping: { time: '2020-04-31-15:00', user_id: user.id } },
-             headers: user_headers
+          params: { ping: { time: '2020-04-31-15:00', user_id: user.id } },
+          headers: user_headers
       end
 
       it 'returns a 200 response status' do
@@ -42,8 +42,8 @@ RSpec.describe 'post /pings', type: :request do
 
     describe 'user POST a ping without time' do
       before do
-        post '/pings', params: { ping: { store: 'Ica', user_id: user.id } }, 
-        headers: user_headers
+        post '/pings', params: { ping: { store: 'Ica', user_id: user.id } },
+          headers: user_headers
       end
 
       it 'returns error message' do
@@ -53,13 +53,35 @@ RSpec.describe 'post /pings', type: :request do
       end
     end
   end
+  describe 'who is not accepted by a community' do
+    let(:user) { create(:user, role: 'user', community_status: 'pending') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+
+    before do
+      post '/pings', params: { ping: { store: 'Ica', user_id: user.id } },
+        headers: user_headers
+    end
+
+    it 'returns a 401 response status' do
+      expect(response).to have_http_status 401
+    end
+
+    it 'returns error message' do
+      expect(
+        response_json['message']
+      ).to eq 'You are not part of a community yet, ask your admin for more information'
+    end
+  end
 
   describe 'without valid credentials' do
     let(:headers) { { HTTP_ACCEPT: 'application/json' } }
     before do
       post '/pings',
-           params: { ping: { time: '2020-04-31-15:00', store: 'ica' } },
-           headers: headers
+        params: { ping: { time: '2020-04-31-15:00', store: 'ica' } },
+        headers: headers
     end
 
     it 'returns a 401 response status' do
