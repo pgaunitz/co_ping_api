@@ -13,7 +13,7 @@ RSpec.describe 'GET /pings/:id', type: :request do
     let!(:pong2) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
     let!(:pong3) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
     
-    before { get "/pings/#{ping.id}", headers: user_headers }
+    before { get "/pings/#{user.id}", headers: user_headers }
 
     it 'returns a 200 response status' do
       expect(response).to have_http_status 200
@@ -34,9 +34,9 @@ RSpec.describe 'GET /pings/:id', type: :request do
 
   describe 'user get message that there is no pongs' do
 
-    before { get "/pings/#{ping.id}", headers: user_headers }
+    before { get "/pings/#{user.id}", headers: user_headers }
     
-    it 'returns messege' do
+    it 'returns message' do
       expect(response_json['message']).to eq 'Your shopping bag looks light!'
     end
   end
