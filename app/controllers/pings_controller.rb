@@ -32,6 +32,11 @@ class PingsController < ApplicationController
     end
   end
 
+  def show
+    ping = Ping.find(params[:id])
+    render json: ping, serializer: PingShowSerializer
+  end
+
   private
 
   def ping_params
