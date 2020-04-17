@@ -3,8 +3,10 @@
 RSpec.describe 'GET /admin/communities', type: :request do
   describe 'successfully' do
     let(:community) { create(:community) }
-    let!(:user3) { create(:user, role: 'user', community_status: 'accepted', community_id: community.id) }
-    let!(:user4) { create(:user, role: 'user', community_status: 'pending') }
+
+    let!(:user) { create(:user, role: 'user', community_status: 'accepted', community_id: community.id) }
+    let!(:user2) { create(:user, role: 'user', community_status: 'pending') }
+
     let(:admin) { create(:user, role: 'admin', community_id: community.id) }
     let(:admin_credentials) { admin.create_new_auth_token }
     let(:admin_headers) do
@@ -12,8 +14,8 @@ RSpec.describe 'GET /admin/communities', type: :request do
     end
 
     describe 'admin can see list of pending requests' do
-      let!(:user) { create(:user, role: 'user', community_status: 'pending', community_id: community.id) }
-      let!(:user2) { create(:user, role: 'user', community_status: 'pending', community_id: community.id) }
+      let!(:user3) { create(:user, role: 'user', community_status: 'pending', community_id: community.id) }
+      let!(:user4) { create(:user, role: 'user', community_status: 'pending', community_id: community.id) }
 
       before do
         get '/admin/communities',
@@ -47,11 +49,13 @@ RSpec.describe 'GET /admin/communities', type: :request do
 
   describe 'only admin can change community status' do
     let(:community) { create(:community) }
+
     let(:user) { create(:user, role: 'user', community_status: 'pending') }
     let(:user_credentials) { user.create_new_auth_token }
     let(:user_headers) do
       { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
     end
+    
     before do
       put "/admin/communities/#{community.id}",
           params: {

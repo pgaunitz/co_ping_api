@@ -2,16 +2,19 @@
 
 RSpec.describe 'PUT /communities', type: :request do
   let(:community) { create(:community) }
+  
   let(:user) { create(:user, role: 'user', community_status: 'pending') }
   let(:user_credentials) { user.create_new_auth_token }
   let(:user_headers) do
     { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
   end
+
   let(:admin) { create(:user, role: 'admin') }
   let(:admin_credentials) { admin.create_new_auth_token }
   let(:admin_headers) do
     { HTTP_ACCEPT: 'application/json' }.merge!(admin_credentials)
   end
+
   describe 'admin can accept user to community' do
     before do
       put "/admin/communities/#{community.id}",
