@@ -2,9 +2,11 @@
 
 class PongsController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_part_of_community?
   before_action :verify_ping_and_user
   before_action :get_pong_owner
   before_action :get_ping
+  
   def create
     if @pong_owner.has_active_pongs?
       render_error('You can only have one active request')
@@ -16,6 +18,13 @@ class PongsController < ApplicationController
   end
 
   private
+
+  def is_part_of_community?
+    if current_user.community_status == 'accepted'
+    else
+      render json: { message: 'You are not part of a community yet, ask your admin for more information' }, status: 401
+    end
+  end
 
   def pong_params
     params.require(:pong).permit(:item1, :item2, :item3, :user_id, :ping_id)
