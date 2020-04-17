@@ -24,7 +24,7 @@ RSpec.describe 'PUT /pings', type: :request do
     end
 
     it 'returns success message' do
-      expect(response_json['message']).to eq 'Your trip is now closed for more requests'
+      expect(response_json['message']).to eq 'You are ready to go shopping!'
     end
 
     it 'sets active from true to false' do

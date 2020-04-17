@@ -29,7 +29,7 @@ class PingsController < ApplicationController
     requested_ping = Ping.all.find(params[:id])
     if requested_ping.user_id == current_user.id
       requested_ping.update(active: false)
-      render json: { message: 'Your trip is now closed for more requests' }
+      render json: { message: 'You are ready to go shopping!' }
     else
       render json: {
                message: "You are not authorized to update another user's ping"
@@ -43,7 +43,7 @@ class PingsController < ApplicationController
     if ping.pongs.where(active: true).any?
       render json: ping, serializer: PingShowSerializer
     else
-      render json: { message: 'Your shopping bag looks light' }
+      render json: { message: 'Your shopping bag looks light!' }
     end
   end
 
