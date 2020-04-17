@@ -44,4 +44,32 @@ RSpec.describe 'GET /admin/communities', type: :request do
       end
     end
   end
+
+  describe 'only admin can change community status' do
+    let(:community) { create(:community) }
+    let(:user) { create(:user, role: 'user', community_status: 'pending') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+    before do
+      put "/admin/communities/#{community.id}",
+          params: {
+            user_admission: {
+              community_id: community.id,
+              community_status: 'rejected',
+              user_id: user.id
+            }
+          },
+          headers: user_headers
+    end
+
+    it 'returns a 401 response status' do
+      expect(response).to have_http_status 401
+    end
+
+    it 'returns error message' do
+      expect(response_json['message']).to eq 'You are not authorized to do this, ask your admin'
+    end
+  end
 end
