@@ -34,4 +34,29 @@ RSpec.describe 'PUT /pongs', type: :request do
       expect(response_json['ping']['pongs'].count).to eq 1
     end
   end
+
+  describe 'can accept pong' do
+    before do
+      put "/pongs/#{pong.id}",
+          params: {
+            pong: {
+              status: 'rejected',
+              ping_id: ping.id
+            }
+          },
+          headers: user_headers
+    end
+
+    it 'returns 200 response' do
+      expect(response).to have_http_status 200
+    end
+
+    it 'returns updated Ping' do
+      expect(Pong.all.find(pong.id).status).to eq 'rejected'
+    end
+
+    it 'returns updated Ping' do
+      expect(response_json['ping']['pongs'].count).to eq 0
+    end
+  end
 end
