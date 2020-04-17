@@ -15,7 +15,8 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def index
-    
+    pending_community_users = User.all.where(community_id: current_user.community_id).where(community_status: 'pending')
+    render json: { requests: pending_community_users }
   end
 
   private
