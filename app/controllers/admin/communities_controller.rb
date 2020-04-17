@@ -16,7 +16,11 @@ class Admin::CommunitiesController < ApplicationController
 
   def index
     pending_community_users = User.all.where(community_id: current_user.community_id).where(community_status: 'pending')
-    render json: { requests: pending_community_users }
+    if pending_community_users.any?
+      render json: { requests: pending_community_users }
+    else
+      render json: { message: 'You have no pending requests to your community' }
+    end
   end
 
   private
