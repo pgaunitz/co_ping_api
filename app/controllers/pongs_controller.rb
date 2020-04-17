@@ -57,7 +57,7 @@ class PongsController < ApplicationController
   def create_pong
     pong = Pong.create(pong_params)
     if pong.persisted?
-      render json: { message: 'Your request was added to this trip' }
+      render json: { message: "Now wait for your neighbour's reply" }
     else
       render_error('You have to specify what items you need')
     end
