@@ -4,7 +4,7 @@ class PingShowSerializer < ActiveModel::Serializer
   attributes :id, :time, :store, :pongs
 
   attribute :pongs do
-    ActiveModel::Serializer::CollectionSerializer.new(object.pongs.where(active: true, status: ('accepted' || 'pending')), serializer: PongsSerializer)
+    ActiveModel::Serializer::CollectionSerializer.new(object.pongs.where(active: true), serializer: PongsSerializer)
   end
 
   def time
