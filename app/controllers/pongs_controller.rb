@@ -3,9 +3,9 @@
 class PongsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_part_of_community?
-  before_action :verify_ping_and_user
-  before_action :get_pong_owner
-  before_action :get_ping
+  before_action :verify_ping_and_user, only: [:create]
+  before_action :get_pong_owner, only: [:create]
+  before_action :get_ping, only: [:create]
   
   def create
     if @pong_owner.has_active_pongs?
@@ -15,6 +15,12 @@ class PongsController < ApplicationController
     else
       render_error('This trip is no longer active')
     end
+  end
+
+  def update
+    Pong.all.find(params[:id]).update(status: params['pong']['status'])
+    ping = Ping.all.find(params['pong']['ping_id'])
+    render json: ping, serializer: PingShowSerializer
   end
 
   private
