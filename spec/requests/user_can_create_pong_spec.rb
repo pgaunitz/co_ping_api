@@ -31,7 +31,7 @@ RSpec.describe 'POST /pongs', type: :request do
       it 'successfully creates pong' do
         expect(
           response_json['message']
-        ).to eq 'Your request was added to this trip'
+        ).to eq "Now wait for your neighbour's reply"
       end
 
       it 'pong belongs to ping' do
@@ -62,7 +62,7 @@ RSpec.describe 'POST /pongs', type: :request do
       it 'successfully creates pong' do
         expect(
           response_json['message']
-        ).to eq 'Your request was added to this trip'
+        ).to eq "Now wait for your neighbour's reply"
       end
 
       it 'pong belongs to ping' do

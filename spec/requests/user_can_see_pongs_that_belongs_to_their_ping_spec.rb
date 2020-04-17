@@ -10,8 +10,8 @@ RSpec.describe 'GET /pings/:id', type: :request do
   let!(:pong) { create(:pong, ping_id: ping.id, active: false) }
 
   describe 'Can see pongs that belongs to their ping' do
-    let!(:pong2) { create(:pong, ping_id: ping.id, active: true) }
-    let!(:pong3) { create(:pong, ping_id: ping.id, active: true) }
+    let!(:pong2) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
+    let!(:pong3) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
     
     before { get "/pings/#{ping.id}", headers: user_headers }
 

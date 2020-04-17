@@ -3,10 +3,10 @@
 class PongsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_part_of_community?
-  before_action :verify_ping_and_user
-  before_action :get_pong_owner
-  before_action :get_ping
-  
+  before_action :verify_ping_and_user, only: [:create]
+  before_action :get_pong_owner, only: [:create]
+  before_action :get_ping, only: [:create]
+
   def create
     if @pong_owner.has_active_pongs?
       render_error('You can only have one active request')
@@ -15,6 +15,12 @@ class PongsController < ApplicationController
     else
       render_error('This trip is no longer active')
     end
+  end
+
+  def update
+    Pong.all.find(params[:id]).update(status: params['pong']['status'])
+    ping = Ping.all.find(params['pong']['ping_id'])
+    render json: ping, serializer: PingShowSerializer
   end
 
   private
@@ -51,7 +57,7 @@ class PongsController < ApplicationController
   def create_pong
     pong = Pong.create(pong_params)
     if pong.persisted?
-      render json: { message: 'Your request was added to this trip' }
+      render json: { message: "Now wait for your neighbour's reply" }
     else
       render_error('You have to specify what items you need')
     end
