@@ -7,15 +7,13 @@ RSpec.describe 'GET /pings/:id', type: :request do
     { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
   end
   let(:ping) { create(:ping, user_id: user.id) }
-
-  let!(:pong) { create(:pong, ping_id: ping.id, active: true) }
-  let!(:pong2) { create(:pong, ping_id: ping.id, active: true) }
-  let!(:pong3) { create(:pong, ping_id: ping.id, active: false) }
+  let!(:pong) { create(:pong, ping_id: ping.id, active: false) }
 
   describe 'Can see pongs that belongs to their ping' do
-    before do
-      get "/pings/#{ping.id}", headers: user_headers
-    end
+    let!(:pong2) { create(:pong, ping_id: ping.id, active: true) }
+    let!(:pong3) { create(:pong, ping_id: ping.id, active: true) }
+    
+    before { get "/pings/#{ping.id}", headers: user_headers }
 
     it 'returns a 200 response status' do
       expect(response).to have_http_status 200
@@ -30,7 +28,16 @@ RSpec.describe 'GET /pings/:id', type: :request do
     end
 
     it 'return name of pong owner' do
-      expect(response_json['ping']['pongs'].first['user_name']).to eq 'Betty'  
+      expect(response_json['ping']['pongs'].first['user_name']).to eq 'Betty'
+    end
+  end
+
+  describe 'user get message that there is no pongs' do
+
+    before { get "/pings/#{ping.id}", headers: user_headers }
+    
+    it 'returns messege' do
+      expect(response_json['message']).to eq 'Your shopping bag looks light'
     end
   end
 end

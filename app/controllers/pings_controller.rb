@@ -18,7 +18,10 @@ class PingsController < ApplicationController
     if !pings.empty?
       render json: pings, each_serializer: PingIndexSerializer
     else
-      render json: { message: 'Unfortunately no one has planned to go shopping, so maybe you can?' }
+      render json: {
+               message:
+                 'Unfortunately no one has planned to go shopping, so maybe you can?'
+             }
     end
   end
 
@@ -28,13 +31,20 @@ class PingsController < ApplicationController
       requested_ping.update(active: false)
       render json: { message: 'Your trip is now closed for more requests' }
     else
-      render json: { message: "You are not authorized to update another user's ping" }, status: 401
+      render json: {
+               message: "You are not authorized to update another user's ping"
+             },
+             status: 401
     end
   end
 
   def show
     ping = Ping.find(params[:id])
-    render json: ping, serializer: PingShowSerializer
+    if ping.pongs.where(active: true).any?
+      render json: ping, serializer: PingShowSerializer
+    else
+      render json: { message: 'Your shopping bag looks light' }
+    end
   end
 
   private
@@ -45,8 +55,13 @@ class PingsController < ApplicationController
 
   def is_part_of_community?
     if current_user.community_status == 'accepted'
+
     else
-      render json: { message: 'You are not part of a community yet, ask your admin for more information' }, status: 401
+      render json: {
+               message:
+                 'You are not part of a community yet, ask your admin for more information'
+             },
+             status: 401
     end
   end
 end
