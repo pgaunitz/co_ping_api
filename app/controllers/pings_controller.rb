@@ -22,6 +22,11 @@ class PingsController < ApplicationController
     end
   end
 
+  def update
+    Ping.all.find(params[:id]).update(active: false)
+    render json: { message: 'Your trip is now closed for more requests' }
+  end
+
   private
 
   def ping_params
