@@ -46,13 +46,11 @@ class PongsController < ApplicationController
 
   def is_part_of_community?
     if current_user.community_status == 'accepted'
-
     else
       render json: {
         message:
           'You are not part of a community yet, ask your admin for more information'
-      },
-             status: 401
+      }, status: 401
     end
   end
 

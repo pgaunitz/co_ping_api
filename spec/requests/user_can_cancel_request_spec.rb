@@ -7,10 +7,10 @@ RSpec.describe 'DELETE /pongs/:id' do
     { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
   end
   let(:ping) { create(:ping) }
-  
+
   describe 'user can cancel their request' do
     let!(:pong) { create(:pong, ping_id: ping.id, user_id: user.id, active: false, status: 'accepted') }
-  let!(:pong2) { create(:pong, ping_id: ping.id, user_id: user.id) }
+    let!(:pong2) { create(:pong, ping_id: ping.id, user_id: user.id) }
 
     before do
       delete "/pongs/#{user.id}",
@@ -29,6 +29,7 @@ RSpec.describe 'DELETE /pongs/:id' do
       expect(response_json['message']).to eq 'Your request is removed'
     end
   end
+
   describe 'user can cancel their request' do
     let!(:pong) { create(:pong, ping_id: ping.id, user_id: user.id, status: 'accepted') }
 
