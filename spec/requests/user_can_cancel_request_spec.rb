@@ -9,11 +9,11 @@ RSpec.describe 'DELETE /pongs/:id' do
   let(:ping) { create(:ping) }
 
   describe 'user can cancel their request' do
-    let!(:pong) { create(:pong, ping_id: ping.id, user_id: user.id, active: false, status: 'accepted') }
-    let!(:pong2) { create(:pong, ping_id: ping.id, user_id: user.id) }
+    let!(:pong) { create(:pong, ping_id: ping.id, user_id: user.id) }
+    let!(:pong2) { create(:pong, ping_id: ping.id, user_id: user.id, active: false, status: 'accepted') }
 
     before do
-      delete "/pongs/#{user.id}",
+      delete "/pongs/#{pong.id}",
              headers: user_headers
     end
 
@@ -34,7 +34,7 @@ RSpec.describe 'DELETE /pongs/:id' do
     let!(:pong) { create(:pong, ping_id: ping.id, user_id: user.id, status: 'accepted') }
 
     before do
-      delete "/pongs/#{user.id}",
+      delete "/pongs/#{pong.id}",
              headers: user_headers
     end
 

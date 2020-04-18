@@ -9,6 +9,8 @@ RSpec.describe 'post /pings', type: :request do
     end
 
     describe 'user POST a ping' do
+      let!(:ping) { create(:ping, user_id: user.id, completed: true)}
+
       before do
         post '/pings',
           params: { ping: { time: '2020-04-31-15:00', store: 'ica', user_id: user.id } },
@@ -52,7 +54,26 @@ RSpec.describe 'post /pings', type: :request do
         ).to eq 'You need to set a time for your new trip'
       end
     end
+
+    describe 'user already has uncompleted ping' do
+      let!(:ping) { create(:ping, user_id: user.id, completed: false)}
+
+      before do
+        post '/pings',
+          params: { ping: { time: '2020-04-31-15:00', user_id: user.id } },
+          headers: user_headers
+      end
+
+      it 'returns a 200 response status' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'returns success message' do
+        expect(response_json['message']).to eq 'You need to complete your current ping before you can create a new one'
+      end
+    end
   end
+
   describe 'who is not accepted by a community' do
     let(:user) { create(:user, role: 'user', community_status: 'pending') }
     let(:user_credentials) { user.create_new_auth_token }

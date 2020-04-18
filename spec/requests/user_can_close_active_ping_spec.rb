@@ -9,6 +9,8 @@ RSpec.describe 'PUT /pings', type: :request do
 
   describe 'user PUT a ping' do
     let(:ping) { create(:ping, user_id: user.id) }
+    let!(:pong) { create(:pong, ping_id: ping.id, status: 'pending') }
+    let!(:pong2) { create(:pong, ping_id: ping.id, status: 'pending') }
 
     before do
       put "/pings/#{ping.id}",
@@ -24,11 +26,15 @@ RSpec.describe 'PUT /pings', type: :request do
     end
 
     it 'returns success message' do
-      expect(response_json['message']).to eq 'You are ready to go shopping!'
+      expect(response_json['message']).to eq "You are ready to go shopping, don't forget the receipts!"
     end
 
     it 'sets active from true to false' do
       expect(Ping.all.find(ping.id).active).to eq false
+    end
+
+    it 'sets status rejected to all pending pongs' do
+      expect(Pong.find(pong.id).status).to eq 'rejected'
     end
   end
   describe 'user tries to update other users ping' do

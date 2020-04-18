@@ -3,6 +3,9 @@
 class PingsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_part_of_community?
+  before_action :last_ping, only: %i[show]
+  before_action :correct_user?, only: %i[update]
+  before_action :user_has_uncompleted_ping?, only: %i[create]
 
   def create
     ping = Ping.create(ping_params)
@@ -26,22 +29,23 @@ class PingsController < ApplicationController
   end
 
   def update
-    requested_ping = Ping.all.find(params[:id])
-    if requested_ping.user_id == current_user.id
-      requested_ping.update(active: false)
-      render json: { message: 'You are ready to go shopping!' }
+    if params['ping']['completed']
+      @requested_ping.update(completed: true)
+      @requested_ping.pongs.update(active: false)
+      render json: { message: 'Your trip is completed' }
     else
+      @requested_ping.update(active: false)
+      @requested_ping.pongs.where(status: 'pending').update(status: 'rejected')
       render json: {
-        message: "You are not authorized to update another user's ping"
-      },
-             status: 401
+        message:
+          "You are ready to go shopping, don't forget the receipts!"
+      }
     end
   end
 
   def show
-    ping = User.find(params[:id]).pings.last
-    if ping.pongs.where(active: true).any?
-      render json: ping, serializer: PingShowSerializer
+    if @ping.pongs.any?
+      render json: @ping, serializer: PingShowSerializer
     else
       render json: { message: 'Your shopping bag looks light!' }
     end
@@ -53,6 +57,25 @@ class PingsController < ApplicationController
     params.require(:ping).permit(:time, :store, :user_id)
   end
 
+  def last_ping
+    if User.find(params[:id]).pings.any?
+      @ping = User.find(params[:id]).pings.last
+    else
+      render json: { message: 'It seems like you have not planned to go shopping yet' }
+    end
+  end
+
+  def correct_user?
+    @requested_ping = Ping.find(params[:id])
+    if @requested_ping.user_id == current_user.id
+    else
+      render json: {
+        message: "You are not authorized to update another user's ping"
+      },
+             status: 401
+    end
+  end
+
   def is_part_of_community?
     if current_user.community_status == 'accepted'
 
@@ -60,7 +83,15 @@ class PingsController < ApplicationController
       render json: {
         message:
           'You are not part of a community yet, ask your admin for more information'
-      }, status: 401
+      },
+             status: 401
+    end
+  end
+
+  def user_has_uncompleted_ping?
+    if current_user.pings.none? || current_user.pings.last['completed']
+    else
+      render json: { message: 'You need to complete your current ping before you can create a new one' }
     end
   end
 end
