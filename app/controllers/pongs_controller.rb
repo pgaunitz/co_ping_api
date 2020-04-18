@@ -23,6 +23,11 @@ class PongsController < ApplicationController
     render json: ping, serializer: PingShowSerializer
   end
 
+  def destroy
+    pong = User.find(params[:id]).pongs.last.destroy
+    render json: { message: 'Your request is removed' }
+  end
+
   private
 
   def is_part_of_community?
