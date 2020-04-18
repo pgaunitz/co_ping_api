@@ -33,6 +33,7 @@ class PingsController < ApplicationController
       render json: { message: 'Your trip is completed' }
     else
       @requested_ping.update(active: false)
+      @requested_ping.pongs.where(status: 'pending').update(status: 'rejected')
       render json: {
         message:
           "You are ready to go shopping, don't forget the receipts!"
