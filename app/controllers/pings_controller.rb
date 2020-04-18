@@ -39,7 +39,7 @@ class PingsController < ApplicationController
   end
 
   def show
-    ping = Ping.find(params[:id])
+    ping = User.find(params[:id]).pings.last
     if ping.pongs.where(active: true).any?
       render json: ping, serializer: PingShowSerializer
     else

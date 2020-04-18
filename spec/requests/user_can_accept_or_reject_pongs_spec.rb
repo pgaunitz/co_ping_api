@@ -54,9 +54,5 @@ RSpec.describe 'PUT /pongs', type: :request do
     it 'returns updated Ping' do
       expect(Pong.all.find(pong.id).status).to eq 'rejected'
     end
-
-    it 'returns updated Ping' do
-      expect(response_json['ping']['pongs'].count).to eq 0
-    end
   end
 end
