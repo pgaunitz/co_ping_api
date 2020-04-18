@@ -6,7 +6,8 @@ class PongsController < ApplicationController
   before_action :verify_ping_and_user, only: %i[create]
   before_action :get_pong_owner, only: %i[create]
   before_action :get_ping, only: %i[create]
-  before_action :last_pong, only: %i[show destroy update]
+  before_action :requested_pong, only: %i[destroy update]
+  before_action :users_pong, only: [:show]
 
   def create
     if @pong_owner.has_active_pongs?
@@ -42,7 +43,7 @@ class PongsController < ApplicationController
   end
 
   def show
-    render json: @pong, serializer: PongShowSerializer
+    render json: @users_pong, serializer: PongShowSerializer
   rescue StandardError => e
     render json: { message: 'You have not requested anything from a neighbour' }
   end
@@ -96,7 +97,11 @@ class PongsController < ApplicationController
     render json: { message: error }
   end
 
-  def last_pong
+  def requested_pong
     @pong = Pong.find(params[:id])
+  end
+
+  def users_pong
+    @users_pong = User.find(params[:id]).pongs.last
   end
 end

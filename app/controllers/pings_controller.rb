@@ -43,7 +43,7 @@ class PingsController < ApplicationController
 
   def show
     if @ping.pongs.any?
-      render json: ping, serializer: PingShowSerializer
+      render json: @ping, serializer: PingShowSerializer
     else
       render json: { message: 'Your shopping bag looks light!' }
     end
