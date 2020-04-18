@@ -5,7 +5,8 @@ class PingsController < ApplicationController
   before_action :is_part_of_community?
   before_action :last_ping, only: %i[show]
   before_action :correct_user?, only: %i[update]
-  before_action :user_has_uncompleted_ping?, only: [:create]
+  before_action :user_has_uncompleted_ping?, only: %i[create]
+
   def create
     ping = Ping.create(ping_params)
     if ping.persisted?
@@ -57,7 +58,11 @@ class PingsController < ApplicationController
   end
 
   def last_ping
-    @ping = User.find(params[:id]).pings.last
+    if User.find(params[:id]).pings.any?
+      @ping = User.find(params[:id]).pings.last
+    else
+      render json: { message: 'It seems like you have not planned to go shopping yet' }
+    end
   end
 
   def correct_user?
@@ -84,7 +89,7 @@ class PingsController < ApplicationController
   end
 
   def user_has_uncompleted_ping?
-    if !current_user.pings.any? || current_user.pings.last['completed']
+    if current_user.pings.none? || current_user.pings.last['completed']
     else
       render json: { message: 'You need to complete your current ping before you can create a new one' }
     end
