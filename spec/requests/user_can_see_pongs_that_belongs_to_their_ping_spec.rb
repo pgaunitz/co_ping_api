@@ -6,8 +6,7 @@ RSpec.describe 'GET /pings/:id', type: :request do
   let(:user_headers) do
     { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
   end
-  let(:ping) { create(:ping, user_id: user.id) }
-  let!(:pong) { create(:pong, ping_id: ping.id, active: false) }
+  let!(:ping) { create(:ping, user_id: user.id) }
 
   describe 'Can see pongs that belongs to their ping' do
     let!(:pong2) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
