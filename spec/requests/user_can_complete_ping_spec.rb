@@ -6,7 +6,8 @@ RSpec.describe 'PUT /pings', type: :request do
   end
   let(:ping) { create(:ping, user_id: user.id) }
   let!(:pong) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
-  
+  let!(:pong2) { create(:pong, ping_id: ping.id, active: true, status: 'accepted') }
+
   describe 'complete trip' do
     before do
     put "/pings/#{ping.id}",
@@ -28,6 +29,14 @@ RSpec.describe 'PUT /pings', type: :request do
 
     it 'returns ping with active pongs' do
       expect(Ping.find(ping.id).completed).to eq true
+    end
+
+    it 'changes active to false on pong' do
+      expect(Pong.find(pong.id).active).to eq false
+    end
+
+    it 'changes active to false on pong' do
+      expect(Pong.find(pong2.id).active).to eq false
     end
   end
 end

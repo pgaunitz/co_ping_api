@@ -20,25 +20,23 @@ class PingsController < ApplicationController
       render json: pings, each_serializer: PingIndexSerializer
     else
       render json: {
-               message:
-                 'Unfortunately no one has planned to go shopping, so maybe you can?'
-             }
+        message:
+          'Unfortunately no one has planned to go shopping, so maybe you can?'
+      }
     end
   end
 
   def update
     if params['ping']['completed']
       @requested_ping.update(completed: true)
-      render json: {
-        message:
-          "Your trip is completed"
-      }
+      @requested_ping.pongs.update(active: false)
+      render json: { message: 'Your trip is completed' }
     else
       @requested_ping.update(active: false)
       render json: {
-               message:
-                 "You are ready to go shopping, don't forget the receipts!"
-             }
+        message:
+          "You are ready to go shopping, don't forget the receipts!"
+      }
     end
   end
 
@@ -65,8 +63,8 @@ class PingsController < ApplicationController
     if @requested_ping.user_id == current_user.id
     else
       render json: {
-               message: "You are not authorized to update another user's ping"
-             },
+        message: "You are not authorized to update another user's ping"
+      },
              status: 401
     end
   end
@@ -76,9 +74,9 @@ class PingsController < ApplicationController
 
     else
       render json: {
-               message:
-                 'You are not part of a community yet, ask your admin for more information'
-             },
+        message:
+          'You are not part of a community yet, ask your admin for more information'
+      },
              status: 401
     end
   end
