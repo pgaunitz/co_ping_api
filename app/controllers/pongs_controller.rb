@@ -3,9 +3,10 @@
 class PongsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_part_of_community?
-  before_action :verify_ping_and_user, only: [:create]
-  before_action :get_pong_owner, only: [:create]
-  before_action :get_ping, only: [:create]
+  before_action :verify_ping_and_user, only: %i[create]
+  before_action :get_pong_owner, only: %i[create]
+  before_action :get_ping, only: %i[create]
+  before_action :last_pong, only: %i[show destroy]
 
   def create
     if @pong_owner.has_active_pongs?
@@ -23,12 +24,33 @@ class PongsController < ApplicationController
     render json: ping, serializer: PingShowSerializer
   end
 
+  def destroy
+    if @pong.status == 'accepted'
+      render json: {
+        message:
+          'This request has alredy been accapted, reach out to your neighbour for additional changes'
+      }
+    else
+      @pong.destroy
+      render json: { message: 'Your request is removed' }
+    end
+  end
+
+  def show
+    render json: @pong, serializer: PongShowSerializer
+  rescue StandardError => e
+    render json: { message: 'You have not requested anything from a neighbour' }
+  end
+
   private
 
   def is_part_of_community?
     if current_user.community_status == 'accepted'
     else
-      render json: { message: 'You are not part of a community yet, ask your admin for more information' }, status: 401
+      render json: {
+        message:
+          'You are not part of a community yet, ask your admin for more information'
+      }, status: 401
     end
   end
 
@@ -65,5 +87,9 @@ class PongsController < ApplicationController
 
   def render_error(error)
     render json: { message: error }
+  end
+
+  def last_pong
+    @pong = User.find(params[:id]).pongs.last
   end
 end
