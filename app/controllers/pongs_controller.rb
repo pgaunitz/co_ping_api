@@ -27,9 +27,9 @@ class PongsController < ApplicationController
   def destroy
     if @pong.status == 'accepted'
       render json: {
-               message:
-                 'This request has alredy been accapted, reach out to your neighbour for additional changes'
-             }
+        message:
+          'This request has alredy been accapted, reach out to your neighbour for additional changes'
+      }
     else
       @pong.destroy
       render json: { message: 'Your request is removed' }
@@ -38,6 +38,8 @@ class PongsController < ApplicationController
 
   def show
     render json: @pong, serializer: PongShowSerializer
+  rescue StandardError => e
+    render json: { message: 'You have not requested anything from a neighbour' }
   end
 
   private
@@ -47,9 +49,9 @@ class PongsController < ApplicationController
 
     else
       render json: {
-               message:
-                 'You are not part of a community yet, ask your admin for more information'
-             },
+        message:
+          'You are not part of a community yet, ask your admin for more information'
+      },
              status: 401
     end
   end
