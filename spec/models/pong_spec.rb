@@ -12,6 +12,7 @@ RSpec.describe Pong, type: :model do
     it { is_expected.to have_db_column :item3 }
     it { is_expected.to have_db_column :active }
     it { is_expected.to have_db_column :status }
+    it { is_expected.to have_db_column :total_cost }
     it { is_expected.to belong_to :user}
     it { is_expected.to belong_to :ping}
 
