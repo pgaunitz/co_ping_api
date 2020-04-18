@@ -6,6 +6,7 @@ class PongsController < ApplicationController
   before_action :verify_ping_and_user, only: %i[create]
   before_action :get_pong_owner, only: %i[create]
   before_action :get_ping, only: %i[create]
+  before_action :last_pong, only: %i[show destroy]
 
   def create
     if @pong_owner.has_active_pongs?
@@ -24,16 +25,19 @@ class PongsController < ApplicationController
   end
 
   def destroy
-    pong = User.find(params[:id]).pongs.last
-    if pong.status == 'accepted'
+    if @pong.status == 'accepted'
       render json: {
                message:
                  'This request has alredy been accapted, reach out to your neighbour for additional changes'
              }
     else
-      pong.destroy
+      @pong.destroy
       render json: { message: 'Your request is removed' }
     end
+  end
+
+  def show
+    render json: @pong, serializer: PongShowSerializer
   end
 
   private
@@ -83,5 +87,9 @@ class PongsController < ApplicationController
 
   def render_error(error)
     render json: { message: error }
+  end
+
+  def last_pong
+    @pong = User.find(params[:id]).pongs.last
   end
 end
