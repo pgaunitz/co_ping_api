@@ -90,6 +90,6 @@ class PongsController < ApplicationController
   end
 
   def last_pong
-    @pong = User.find(params[:id]).pongs.last
+    @pong = Pong.find(params[:id])
   end
 end
