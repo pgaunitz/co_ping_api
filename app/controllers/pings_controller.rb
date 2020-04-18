@@ -5,6 +5,7 @@ class PingsController < ApplicationController
   before_action :is_part_of_community?
   before_action :last_ping, only: %i[show]
   before_action :correct_user?, only: %i[update]
+  before_action :user_has_uncompleted_ping?, only: [:create]
   def create
     ping = Ping.create(ping_params)
     if ping.persisted?
@@ -79,6 +80,13 @@ class PingsController < ApplicationController
           'You are not part of a community yet, ask your admin for more information'
       },
              status: 401
+    end
+  end
+
+  def user_has_uncompleted_ping?
+    if !current_user.pings.any? || current_user.pings.last['completed']
+    else
+      render json: { message: 'You need to complete your current ping before you can create a new one' }
     end
   end
 end
