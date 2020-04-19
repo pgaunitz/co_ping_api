@@ -1,4 +1,4 @@
-# Name of App
+# Co-Ping (API)
 
 #### Netlify badge
 Visit the settings of your deployed site and copy the deploy badge, put it up right beside the title and delete this paragraph.
@@ -14,7 +14,7 @@ A short paragraph about the assignment or objective for this project. No more th
 ### Let's get started
 
 ##### Fork & clone
-To start working on this project you will need to fork  [Repo 1](url), [Repo 2](url) and [Repo 3](url). Clone it down to your local workspace, if more than two Repos we recommend that you start with the API. Make sure you have a text editor, I recommend [VSCode](https://code.visualstudio.com/) but there are many to choose from.
+To start working on this project you will need to fork [this Repo](https://github.com/CraftAcademy/co_ping_api), the [mobile client Repo](https://github.com/CraftAcademy/co_ping_mobile) and also the [browser client Repo](https://github.com/CraftAcademy/co_ping_client). Clone it down to your local workspace, if more than two Repos we recommend that you start with the API. Make sure you have a text editor, we recommend [VSCode](https://code.visualstudio.com/) but there are many to choose from.
 
 ##### This app was built with...
 
@@ -23,16 +23,14 @@ To start working on this project you will need to fork  [Repo 1](url), [Repo 2](
 
 ##### ... and tested using
 
-* [Jest](https://jestjs.io/en/)
-* [Enzyme](https://www.npmjs.com/package/enzyme)
 * [Cypress](https://www.cypress.io/)
 * [RSpec](https://rspec.info/)
 
 ##### ... additional packages and gems includes
-* [Jest](https://jestjs.io/en/)
-* [Enzyme](https://www.npmjs.com/package/enzyme)
-* [Cypress](https://www.cypress.io/)
-* [RSpec](https://rspec.info/)
+* [Package or gem 1](link)
+* [Package or gem 2](link)
+* [Package or gem 3](link)
+* [Package or gem 4](link)
 
 ##### we love to deploy with...
 
@@ -90,15 +88,16 @@ There are still some things to check off before we feel "done" with this project
 
 ### Authors
 These are the people behind this amazing application:
-* [Firstname Lastname](githuburl)
-* [Firstname Lastname](githuburl)
-* [Firstname Lastname](githuburl)
-* [Firstname Lastname](githuburl)
+* [Emma-Maria Thalen](https://github.com/emtalen)
+* [Philip Gaunitz](https://github.com/pgaunitz)
+* [Kayla Woodbury](https://github.com/kaylawoodbury)
+* [Johan Bons](https://github.com/johanbounce)
+* [Karolina Frostare](https://github.com/kaylawoodbury)
 
 ### Acknowledgements
 We would like to show our appreciation to the following people and places
-* [This guy]() for what he did
-* [This chic]() for what she helped us out on
+* [Thomas Ochman](https://github.com/tochman) for helping us out with bug hunts
+* [Aditya Naik](https://github.com/kianaditya) for supporting us during our swish implementation phase
 * [This website]() that got us through this huge bug hunt
 * [This YouTube video]() which taught us some new stuff
 
