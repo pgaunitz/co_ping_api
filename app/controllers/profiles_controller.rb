@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_profile
@@ -7,11 +9,15 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    params['profile'].keys.each { |attribute| update_profile(attribute) }
-    render json: @profile, serializer: ProfileSerializer
+    if params['profile'].value?('')
+      render json: { message: 'You can not update you profile with an empty field' }
+    else
+      params['profile'].keys.each { |attribute| update_profile(attribute) }
+      render json: @profile, serializer: ProfileSerializer
+    end
   end
 
-  private 
+  private
 
   def find_profile
     @profile = User.find(params[:id])
