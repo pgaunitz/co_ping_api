@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :pings, only: %i[create index update show]
   resources :pongs, only: %i[create update destroy show]
   resources :communities, only: [:index]
-  resources :profiles, only: [:show]
+  resources :profiles, only: %i[show update]
   namespace :admin do
     resources :communities, only: %i[index update]
   end
