@@ -1,10 +1,11 @@
 RSpec.describe 'GET /profile/id', type: :request do
-  let!(:user) { create(:user, role: 'user', community_status: 'pending') }
-  let(:user_credentials) { user.create_new_auth_token }
-  let(:user_headers) do
-    { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
-  end
   describe 'Can access profile page' do
+    let!(:user) { create(:user, role: 'user', community_status: 'pending') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+
     before { get "/profiles/#{user.id}", headers: user_headers }
 
     it 'returns a 200 response status' do
@@ -12,19 +13,37 @@ RSpec.describe 'GET /profile/id', type: :request do
     end
 
     it 'returns user adress' do
-      expect(response_json['profile']['adress']).to eq 'Baconstreet 37, floor 2'
+      expect(response_json['user']['adress']).to eq 'Baconstreet 37, floor 2'
     end
 
     it 'returns user phone number' do
-      expect(response_json['profile']['phone_number']).to eq '123456789'
+      expect(response_json['user']['phone_number']).to eq '123456789'
     end
 
     it 'returns about me' do
-      expect(response_json['profile']['about_me']).to eq 'I love bacon'
+      expect(response_json['user']['about_me']).to eq 'I love bacon'
     end
 
     it 'returns community status' do
-      expect(response_json['profile']['community_status']).to eq 'pending'
+      expect(response_json['user']['community_status']).to eq 'pending'
+    end
+  end
+
+  describe 'Can access profile page' do
+    let!(:user) { create(:user, role: 'user', community_status: 'accepted') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+    
+    before { get "/profiles/#{user.id}", headers: user_headers }
+
+    it 'returns a 200 response status' do
+      expect(response).to have_http_status 200
+    end
+
+    it 'returns users community' do
+      expect(response_json['user']['community']).to eq 'First Community'
     end
   end
 end
