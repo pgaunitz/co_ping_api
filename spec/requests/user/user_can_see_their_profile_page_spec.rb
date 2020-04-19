@@ -11,20 +11,20 @@ RSpec.describe 'GET /profile/id', type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'returns ping with active pongs' do
+    it 'returns user adress' do
       expect(response_json['profile']['adress']).to eq 'Baconstreet 37, floor 2'
     end
 
-    it 'returns ping with active pongs' do
-      expect(response_json['profile']['phone_number'].count).to eq '123456789'
+    it 'returns user phone number' do
+      expect(response_json['profile']['phone_number']).to eq '123456789'
     end
 
-    it 'returns ping with active pongs' do
-      expect(response_json['profile']['about_me'].count).to eq 'I love bacon'
+    it 'returns about me' do
+      expect(response_json['profile']['about_me']).to eq 'I love bacon'
     end
 
-    it 'returns ping with active pongs' do
-      expect(response_json['profile']['community_status'].count).to eq 'pending'
+    it 'returns community status' do
+      expect(response_json['profile']['community_status']).to eq 'pending'
     end
   end
 end
