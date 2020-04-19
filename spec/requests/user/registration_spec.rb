@@ -12,7 +12,9 @@ RSpec.describe 'POST /auth', type: :request do
           name: 'Betty',
           password: 'password',
           password_confirmation: 'password',
-          community_id: community.id
+          community_id: community.id,
+          phone_number: '123456789',
+          adress: 'Superstreet 1'
         },
         headers: headers
     end

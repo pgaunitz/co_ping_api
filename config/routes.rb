@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-    mount_devise_token_auth_for 'User', at: '/auth', skip: [:omniauth_callbacks]
-    resources :pings, only: [:create, :index, :update, :show]
-    resources :pongs, only: [:create, :update, :destroy, :show]
-    resources :communities, only: [:index]
-    namespace :admin do
-        resources :communities, only: [:index, :update]
-    end
+  get 'profiles/show'
+  mount_devise_token_auth_for 'User', at: '/auth', skip: [:omniauth_callbacks]
+  resources :pings, only: %i[create index update show]
+  resources :pongs, only: %i[create update destroy show]
+  resources :communities, only: [:index]
+  resources :profiles, only: %i[show update]
+  namespace :admin do
+    resources :communities, only: %i[index update]
+  end
 end

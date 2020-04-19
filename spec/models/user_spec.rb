@@ -15,7 +15,10 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :name }
     it { is_expected.to have_db_column :tokens }
     it { is_expected.to have_db_column :role}
-    it { is_expected.to have_db_column :community_status}
+    it { is_expected.to have_db_column :community_status }
+    it { is_expected.to have_db_column :phone_number }
+    it { is_expected.to have_db_column :adress }
+    it { is_expected.to have_db_column :about_me }
     it { is_expected.to have_many :pings }
     it { is_expected.to have_many :pongs }
     it { is_expected.to belong_to :community }
@@ -25,6 +28,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :email }
     it { is_expected.to validate_presence_of :role }
     it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :adress }
+    it { is_expected.to validate_presence_of :phone_number }
     it { is_expected.to validate_confirmation_of :password }
 
     context 'should not have an invalid email address' do
