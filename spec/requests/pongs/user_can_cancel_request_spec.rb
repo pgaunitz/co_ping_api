@@ -39,7 +39,7 @@ RSpec.describe 'DELETE /pongs/:id' do
     end
 
     it 'can not delete accepted pong' do
-      expect(response_json['message']).to eq 'This request has alredy been accapted, reach out to your neighbour for additional changes'
+      expect(response_json['message']).to eq 'This request has already been accepted, reach out to your neighbour for additional changes'
     end
   end
 end

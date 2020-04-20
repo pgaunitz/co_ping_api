@@ -34,7 +34,7 @@ class PongsController < ApplicationController
     if @pong.status == 'accepted'
       render json: {
                message:
-                 'This request has alredy been accapted, reach out to your neighbour for additional changes'
+                 'This request has already been accepted, reach out to your neighbour for additional changes'
              }
     else
       @pong.destroy
