@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2020_04_19_065627) do
     t.bigint "community_id", null: false
     t.integer "community_status", default: 0
     t.string "phone_number"
-    t.string "adress"
+    t.string "address"
     t.string "about_me"
     t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

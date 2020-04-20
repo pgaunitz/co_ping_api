@@ -12,8 +12,8 @@ RSpec.describe 'GET /profile/id', type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'returns user adress' do
-      expect(response_json['user']['adress']).to eq 'Baconstreet 37, floor 2'
+    it 'returns user address' do
+      expect(response_json['user']['address']).to eq 'Baconstreet 37, floor 2'
     end
 
     it 'returns user phone number' do
