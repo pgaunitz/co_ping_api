@@ -7,17 +7,17 @@ class Admin::CommunitiesController < ApplicationController
   def update
     if accept_user? == 'accepted'
       update_user_community_status
-      render json: { message: 'User is now accepted to your community' }
+      render json: { message: 'is now accepted to your community' }
     else
       update_user_community_status
-      render json: { message: 'User is now rejected from your community' }
+      render json: { message: 'is now rejected from your community' }
     end
   end
 
   def index
-    pending_community_users = User.all.where(community_id: current_user.community_id).where(community_status: 'pending')
-    if pending_community_users.any?
-      render json: { requests: pending_community_users }
+    requests = User.all.where(community_id: current_user.community_id).where(community_status: 'pending')
+    if requests.any?
+      render json: requests, each_serializer: CommunityIndexSerializer 
     else
       render json: { message: 'You have no pending requests to your community' }
     end

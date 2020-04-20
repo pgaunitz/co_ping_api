@@ -27,7 +27,7 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
           'community_id' => admin.community.id,
           'community_status' => 'accepted',
           'phone_number' => admin.phone_number,
-          'adress' => admin.adress,
+          'address' => admin.address,
           'about_me' => admin.about_me
         }
       }
@@ -62,7 +62,7 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
           'community_id' => user.community.id,
           'community_status' => 'accepted',
           'phone_number' => user.phone_number,
-          'adress' => user.adress,
+          'address' => user.address,
           'about_me' => user.about_me
         }
       }

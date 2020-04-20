@@ -71,7 +71,7 @@ RSpec.describe 'PUT /profiles/id' do
               about_me: 'I do not love bacon anymore',
               phone_number: '070777333999',
               name: 'Betty Idontlovebaconsson',
-              adress: 'Fuckbaconstreet 2'
+              address: 'Fuckbaconstreet 2'
             }
           },
           headers: user_headers
@@ -106,11 +106,11 @@ RSpec.describe 'PUT /profiles/id' do
     end
 
     it 'returns updated profile' do
-      expect(response_json['user']['adress']).to eq 'Fuckbaconstreet 2'
+      expect(response_json['user']['address']).to eq 'Fuckbaconstreet 2'
     end
 
-    it 'Updates adress' do
-      expect(User.find(user.id).adress).to eq 'Fuckbaconstreet 2'
+    it 'Updates address' do
+      expect(User.find(user.id).address).to eq 'Fuckbaconstreet 2'
     end
   end
 
@@ -120,7 +120,7 @@ RSpec.describe 'PUT /profiles/id' do
           params: {
             profile: {
               phone_number: '',
-              adress: 'Fuckbaconstreet 2'
+              address: 'Fuckbaconstreet 2'
             }
           },
           headers: user_headers
@@ -134,8 +134,8 @@ RSpec.describe 'PUT /profiles/id' do
       expect(response_json['message']).to eq 'You can not update you profile with an empty field'
     end
 
-    it 'Updates adress' do
-      expect(User.find(user.id).adress).to eq 'Baconstreet 37, floor 2'
+    it 'Updates address' do
+      expect(User.find(user.id).address).to eq 'Baconstreet 37, floor 2'
     end
   end
 end

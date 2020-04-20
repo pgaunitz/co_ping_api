@@ -33,7 +33,7 @@ RSpec.describe 'PUT /communities', type: :request do
     end
 
     it 'returns success message' do
-      expect(response_json['message']).to eq 'User is now accepted to your community'
+      expect(response_json['message']).to eq 'is now accepted to your community'
     end
 
     it 'admin can accept user admission' do
@@ -55,7 +55,7 @@ RSpec.describe 'PUT /communities', type: :request do
     end
 
     it 'returns success message' do
-      expect(response_json['message']).to eq 'User is now rejected from your community'
+      expect(response_json['message']).to eq 'is now rejected from your community'
     end
 
     it 'admin can reject user admission' do

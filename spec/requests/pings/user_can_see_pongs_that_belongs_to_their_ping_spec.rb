@@ -29,6 +29,10 @@ RSpec.describe 'GET /pings/:id', type: :request do
     it 'return name of pong owner' do
       expect(response_json['ping']['pongs'].first['user_name']).to eq 'Betty'
     end
+
+    it 'return phone number of pong owner' do
+      expect(response_json['ping']['pongs'].first['phone_number']).to eq '123456789'
+    end
   end
 
   describe 'user get message that there is no pongs' do

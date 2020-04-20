@@ -1,6 +1,6 @@
 class ProfileSerializer < ActiveModel::Serializer
   attributes :id,
-             :adress,
+             :address,
              :name,
              :phone_number,
              :about_me,

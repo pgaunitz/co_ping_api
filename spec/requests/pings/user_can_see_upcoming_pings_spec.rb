@@ -37,6 +37,10 @@ RSpec.describe 'GET /pings', type: :request do
       it 'return name of ping creator' do
         expect(response_json['pings'].first['user_name']).to eq 'Betty'
       end
+
+      it 'return name of ping creator' do
+        expect(response_json['pings'].first['phone_number']).to eq '123456789'
+      end
     end
 
     describe 'receives message if there are no pings' do

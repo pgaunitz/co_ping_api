@@ -27,11 +27,19 @@ RSpec.describe 'GET /admin/communities', type: :request do
       end
 
       it 'returns all pending users to a community' do
-        expect(response_json['requests'].count).to eq 2
+        expect(response_json['users'].count).to eq 2
       end
 
-      it 'returns correct community id' do
-        expect(response_json['requests'].first['community_id']).to eq community.id
+      it 'returns name of user' do
+        expect(response_json['users'].first['name']).to eq 'Betty'
+      end
+
+      it 'returns name of phone number' do
+        expect(response_json['users'].first['phone_number']).to eq '123456789'
+      end
+
+      it 'returns correct address' do
+        expect(response_json['users'].first['address']).to eq 'Baconstreet 37, floor 2'
       end
     end
 
