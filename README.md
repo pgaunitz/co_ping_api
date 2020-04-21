@@ -1,11 +1,6 @@
-# Co-Ping (API)
+# Co-Ping (API) [![Coverage Status](https://coveralls.io/repos/github/CraftAcademy/co_ping_api/badge.svg?branch=development)](https://coveralls.io/github/CraftAcademy/co_ping_api?branch=development) [![Build Status](https://semaphoreci.com/api/v1/pgaunitz/co_ping_api/branches/development/badge.svg)](https://semaphoreci.com/pgaunitz/co_ping_api)
 
-#### Netlify badge
-Visit the settings of your deployed site and copy the deploy badge, put it up right beside the title and delete this paragraph.
-
-#### Image
-Add a printscreen of the deployed site.
-![printscreen of deployed site](link)
+![Co-ping image](./public/copingWide.png)
 
 ### So what is Co-Ping?
 
