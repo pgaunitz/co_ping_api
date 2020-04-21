@@ -2,41 +2,106 @@
 
 class PongsController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_part_of_community?
+  before_action :verify_ping_and_user, only: %i[create]
+  before_action :get_pong_owner, only: %i[create]
+  before_action :get_ping, only: %i[create]
+  before_action :requested_pong, only: %i[destroy update]
+  before_action :users_pong, only: [:show]
+
   def create
-    if !pong_params['ping_id'].nil? && !pong_params['user_id'].nil?
-      if have_active_pongs
-        error_handler('You can only have one active request')
-      elsif Ping.all.find(pong_params['ping_id']).active
-        pong_creator
-      else
-        error_handler('This trip is no longer active')
-      end
+    if @pong_owner.has_active_pongs?
+      render_error('You can only have one active request')
+    elsif @ping.active
+      create_pong
     else
-      error_handler('Something went wrong, better luck next time!')
+      render_error('This trip is no longer active')
     end
   end
 
+  def update
+    if params['pong']['total_cost']
+      @pong.update(total_cost: params['pong']['total_cost'])
+      render json: { message: 'The total amount was sent to your neighbour' }
+    else
+      @pong.update(status: params['pong']['status'])
+      ping = Ping.all.find(params['pong']['ping_id'])
+      render json: ping, serializer: PingShowSerializer
+    end
+  end
+
+  def destroy
+    if @pong.status == 'accepted'
+      render json: {
+               message:
+                 'This request has already been accepted, reach out to your neighbour for additional changes'
+             }
+    else
+      @pong.destroy
+      render json: { message: 'Your request is removed' }
+    end
+  end
+
+  def show
+    render json: @users_pong, serializer: PongShowSerializer
+  rescue StandardError => e
+    render json: { message: 'You have not requested anything from a neighbour' }
+  end
+
   private
+
+  def is_part_of_community?
+    if current_user.community_status == 'accepted'
+
+    else
+      render json: {
+               message:
+                 'You are not part of a community yet, ask your admin for more information'
+             },
+             status: 401
+    end
+  end
 
   def pong_params
     params.require(:pong).permit(:item1, :item2, :item3, :user_id, :ping_id)
   end
 
-  def have_active_pongs
-      active_pong = Pong.all.where('user_id'==(pong_params['user_id']))
-      active_pong.any? ? active_pong.first.active : false
+  def missing_params?
+    pong_params['ping_id'].nil? || pong_params['user_id'].nil?
   end
 
-  def pong_creator
-    pong = Pong.create(pong_params)
-    if pong.persisted?
-      render json: { message: 'Your request was added to this trip' }
-    else
-      error_handler('You have to specify what items you need')
+  def verify_ping_and_user
+    if missing_params?
+      render_error('Something went wrong, better luck next time!')
     end
   end
 
-  def error_handler(error)
-    render json: { message: error }, status: 422
+  def get_pong_owner
+    @pong_owner = User.find(pong_params['user_id'])
+  end
+
+  def get_ping
+    @ping = Ping.find(pong_params['ping_id'])
+  end
+
+  def create_pong
+    pong = Pong.create(pong_params)
+    if pong.persisted?
+      render json: { message: "Now wait for your neighbour's reply" }
+    else
+      render_error('You have to specify what items you need')
+    end
+  end
+
+  def render_error(error)
+    render json: { message: error }
+  end
+
+  def requested_pong
+    @pong = Pong.find(params[:id])
+  end
+
+  def users_pong
+    @users_pong = User.find(params[:id]).pongs.last
   end
 end

@@ -2,7 +2,7 @@
 
 RSpec.describe 'POST /pongs', type: :request do
   describe 'with valid credentials' do
-    let(:user) { create(:user, role: 'user') }
+    let(:user) { create(:user, role: 'user', community_status: 'accepted') }
     let(:user_credentials) { user.create_new_auth_token }
     let(:user_headers) do
       { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
@@ -25,13 +25,13 @@ RSpec.describe 'POST /pongs', type: :request do
       end
 
       it 'returns response status 200' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status 200
       end
 
       it 'successfully creates pong' do
         expect(
           response_json['message']
-        ).to eq 'Your request was added to this trip'
+        ).to eq "Now wait for your neighbour's reply"
       end
 
       it 'pong belongs to ping' do
@@ -46,8 +46,8 @@ RSpec.describe 'POST /pongs', type: :request do
              params: {
                pong: {
                  item1: 'Bacon',
-                 item2: nil,
-                 item3: nil,
+                 item2: '',
+                 item3: '',
                  ping_id: ping.id,
                  user_id: user.id
                }
@@ -56,13 +56,13 @@ RSpec.describe 'POST /pongs', type: :request do
       end
 
       it 'returns response status 200' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status 200
       end
 
       it 'successfully creates pong' do
         expect(
           response_json['message']
-        ).to eq 'Your request was added to this trip'
+        ).to eq "Now wait for your neighbour's reply"
       end
 
       it 'pong belongs to ping' do
@@ -77,17 +77,13 @@ RSpec.describe 'POST /pongs', type: :request do
              params: {
                pong: {
                  item1: 'Bacon',
-                 item2: nil,
-                 item3: nil,
+                 item2: '',
+                 item3: '',
                  ping_id: ping.id,
                  user_id: user.id
                }
              },
              headers: user_headers
-      end
-
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
       end
 
       it 'cannot create pong to inactive ping' do
@@ -101,9 +97,9 @@ RSpec.describe 'POST /pongs', type: :request do
         post '/pongs',
              params: {
                pong: {
-                 item1: nil,
-                 item2: nil,
-                 item3: nil,
+                 item1: '',
+                 item2: '',
+                 item3: '',
                  ping_id: ping.id,
                  user_id: user.id
                }
@@ -111,11 +107,7 @@ RSpec.describe 'POST /pongs', type: :request do
              headers: user_headers
       end
 
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
-      end
-
-      it 'cannot create pong to inactive ping' do
+      it 'cannot create pong without items' do
         expect(
           response_json['message']
         ).to eq 'You have to specify what items you need'
@@ -123,26 +115,20 @@ RSpec.describe 'POST /pongs', type: :request do
     end
 
     describe 'cannot create pong without ping id' do
-      let(:ping) { create(:ping) }
       before do
         post '/pongs',
              params: {
                pong: {
                  item1: 'Bacon',
-                 item2: nil,
-                 item3: nil,
-                 ping_id: nil,
+                 item2: '',
+                 item3: '',
                  user_id: user.id
                }
              },
              headers: user_headers
       end
 
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
-      end
-
-      it 'cannot create pong to inactive ping' do
+      it 'cannot create pong without ping id' do
         expect(
           response_json['message']
         ).to eq 'Something went wrong, better luck next time!'
@@ -156,20 +142,15 @@ RSpec.describe 'POST /pongs', type: :request do
              params: {
                pong: {
                  item1: 'Bacon',
-                 item2: nil,
-                 item3: nil,
+                 item2: '',
+                 item3: '',
                  ping_id: ping.id,
-                 user_id: nil
                }
              },
              headers: user_headers
       end
 
-      it 'returns response status 422' do
-        expect(response.status).to eq 422
-      end
-
-      it 'cannot create pong to inactive ping' do
+      it 'cannot create pong without user id' do
         expect(
           response_json['message']
         ).to eq 'Something went wrong, better luck next time!'
@@ -183,15 +164,15 @@ RSpec.describe 'POST /pongs', type: :request do
     let(:user_headers) do
       { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
     end
-    let!(:pong) { create(:pong, user: user)}
+    let!(:pong) { create(:pong, user: user) }
     let(:ping) { create(:ping) }
     before do
       post '/pongs',
            params: {
              pong: {
                item1: 'Bacon',
-               item2: nil,
-               item3: nil,
+               item2: '',
+               item3: '',
                ping_id: ping.id,
                user_id: user.id
              }
@@ -199,14 +180,42 @@ RSpec.describe 'POST /pongs', type: :request do
            headers: user_headers
     end
 
-    it 'returns response status 422' do
-      expect(response.status).to eq 422
-    end
-
     it 'cannot create several pongs' do
       expect(
         response_json['message']
       ).to eq 'You can only have one active request'
+    end
+  end
+
+  describe 'can only have one active pong' do
+    let(:user) { create(:user, role: 'user', community_status: 'pending') }
+    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_headers) do
+      { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
+    end
+    let(:ping) { create(:ping) }
+    before do
+      post '/pongs',
+           params: {
+             pong: {
+               item1: 'Bacon',
+               item2: '',
+               item3: '',
+               ping_id: ping.id,
+               user_id: user.id
+             }
+           },
+           headers: user_headers
+    end
+
+    it 'returns a 401 response status' do
+      expect(response).to have_http_status 401
+    end
+
+    it 'returns error message' do
+      expect(
+        response_json['message']
+      ).to eq 'You are not part of a community yet, ask your admin for more information'
     end
   end
 
@@ -225,7 +234,7 @@ RSpec.describe 'POST /pongs', type: :request do
            },
            headers: headers
     end
-    
+
     it 'returns a 401 response status' do
       expect(response).to have_http_status 401
     end

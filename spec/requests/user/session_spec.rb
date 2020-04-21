@@ -25,7 +25,10 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
           'role' => 'admin',
           'name' => admin.name,
           'community_id' => admin.community.id,
-          'community_status' => 'accepted'
+          'community_status' => 'accepted',
+          'phone_number' => admin.phone_number,
+          'address' => admin.address,
+          'about_me' => admin.about_me
         }
       }
     end
@@ -57,7 +60,10 @@ RSpec.describe 'POST /auth/sign_in', type: :request do
           'role' => 'user',
           'name' => user.name,
           'community_id' => user.community.id,
-          'community_status' => 'accepted'
+          'community_status' => 'accepted',
+          'phone_number' => user.phone_number,
+          'address' => user.address,
+          'about_me' => user.about_me
         }
       }
     end

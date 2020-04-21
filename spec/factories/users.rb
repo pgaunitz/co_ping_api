@@ -8,6 +8,9 @@ FactoryBot.define do
     password_confirmation { 'password' }
     name { 'Betty' }
     community_status { 'accepted' }
+    address { 'Baconstreet 37, floor 2' }
+    phone_number { '123456789' }
+    about_me { 'I love bacon' }
     association :community, factory: :community
     
     factory :admin do

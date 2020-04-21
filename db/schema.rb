@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_090814) do
+ActiveRecord::Schema.define(version: 2020_04_19_065627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_090814) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.boolean "completed", default: false
     t.index ["user_id"], name: "index_pings_on_user_id"
   end
 
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 2020_04_15_090814) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "active", default: true
+    t.integer "status", default: 0
+    t.string "total_cost"
     t.index ["ping_id"], name: "index_pongs_on_ping_id"
     t.index ["user_id"], name: "index_pongs_on_user_id"
   end
@@ -70,6 +73,9 @@ ActiveRecord::Schema.define(version: 2020_04_15_090814) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "community_id", null: false
     t.integer "community_status", default: 0
+    t.string "phone_number"
+    t.string "address"
+    t.string "about_me"
     t.index ["community_id"], name: "index_users_on_community_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

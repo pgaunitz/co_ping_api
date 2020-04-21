@@ -228,7 +228,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers (~> 0.10.0)
   bootsnap (>= 1.4.2)
   coveralls
   devise_token_auth
