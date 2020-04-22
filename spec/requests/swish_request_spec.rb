@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Swishes', type: :request do
-  let!(:user) { create(:user, role: 'user', community_status: 'pending') }
+  let!(:user) { create(:user, phone_number: '1111111111', name: 'pungrattan') }
   let(:user_credentials) { user.create_new_auth_token }
   let(:user_headers) do
     { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
   end
-  let!(:ping) { create(:ping) }
-  let!(:pong) { create(:pong, user_id: user.id, total_cost: '54 kr') }
+  let!(:user2) { create(:user, name: 'possum', phone_number: '08070080808') }
+  let!(:ping) { create(:ping, user_id: user2.id) }
+  let!(:pong) { create(:pong, user_id: user.id, total_cost: '54 kr', status: 'accepted', ping_id: ping.id) }
 
   before do
     post '/swish',
@@ -25,6 +26,6 @@ RSpec.describe 'Swishes', type: :request do
   end
 
   it 'returns payment status' do
-    expect(response_json['message']).to eq 'PAYMENT SUCCESSFUL'
+    expect(response_json['body']).to eq 'PAYMENT SUCCESSFUL'
   end
 end
