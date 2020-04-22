@@ -4,7 +4,7 @@
 
 ### So what is Co-Ping?
 
-Co-Ping is the cooperate shopping app for amazing neighbor's. With it you can announce when you'll go shopping so that a neighbor who may need one or two items can request you pick it up for them. Next time, when they go shopping, you may be out of something and they can return the favour. This app is about bringing people in a co-operative or neighborhood closer - one kind gesture at a time.
+Co-Ping is the cooperative shopping app for amazing neighbor's. With it you can announce when you'll go shopping so that a neighbor who may need a few items can request you pick it up for them. Next time, when they go shopping, you may be out of something and they can return the favour. This app is about bringing people in a co-operative or neighborhood closer - one kind gesture at a time (while saving time, money and reducing consumption).
 
 ### Let's get started
 
@@ -22,11 +22,11 @@ To start working on this project you will need to fork [this Repo](https://githu
 * [RSpec](https://rspec.info/)
 
 ##### ... additional packages and gems includes
-* [Active Model Serializer](link)
-* [Device Token Auth](link)
-* [Rack Cors](link)
-* [Shoulda Matchers](link)
-* [Factory Bot](link)
+* [Active Model Serializer](https://www.rubydoc.info/gems/active_model_serializers)
+* [Devise Token Auth](https://www.rubydoc.info/gems/devise_token_auth/0.1.14)
+* [Rack Cors](https://www.rubydoc.info/gems/rack-cors/0.2.9)
+* [Shoulda Matchers](https://matchers.shoulda.io/docs/v4.3.0/)
+* [Factory Bot](https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md)
 
 ##### we love to deploy with...
 
@@ -38,14 +38,8 @@ To start working on this project you will need to fork [this Repo](https://githu
 * [Semaphore](https://semaphoreci.com/)
 * [Coveralls](https://coveralls.io/)
 
-
 ##### Installments
 Now let's get to it shall we?
-
-... get Ruby on Rails
-```
-gem install rails
-```
 ... get the gems needed
 
 ```
@@ -76,7 +70,7 @@ yarn start
 **... There, now you should be good to go. make some coder magic!**
 
 ### Updates and improvements
-There are still some things to check off before we feel "done" with this project (if you're ver done with anything) and that would primarily be:
+There are still some things to check off before we feel "done" with this project (if you're ever done with anything) and that would primarily be:
 * This
 * That
 * Oh and that too
