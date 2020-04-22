@@ -6,7 +6,7 @@ RSpec.describe 'Swishes', type: :request do
   let(:user_headers) do
     { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials)
   end
-  let!(:user2) { create(:user, name: 'possum', phone_number: '08070080808') }
+  let!(:user2) { create(:user, name: 'possum', phone_number: '1231181189') }
   let!(:ping) { create(:ping, user_id: user2.id) }
   let!(:pong) { create(:pong, user_id: user.id, total_cost: '54 kr', status: 'accepted', ping_id: ping.id) }
 

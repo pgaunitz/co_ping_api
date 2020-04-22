@@ -12,7 +12,6 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'rest-client'
 
 group :development, :test do
-  gem 'pry-rails'
   gem 'pry-byebug'
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
