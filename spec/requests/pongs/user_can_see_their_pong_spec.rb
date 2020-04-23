@@ -19,8 +19,8 @@ RSpec.describe 'GET /pongs', type: :request do
     end
     
     it 'return pingers phone number' do
-      phone = User.all.find(Ping.all.find(User.all.find(user.id).pongs.last.ping_id).user_id).phone_number
-      expect(response_json['pong']['ping_phone']).to eq phone
+      ping_phone = User.all.find(Ping.all.find(pong.ping_id).user_id).phone_number
+      expect(response_json['pong']['ping_phone']).to eq ping_phone
     end
 
   end
