@@ -70,11 +70,22 @@ yarn start
 **... There, now you should be good to go. make some coder magic!**
 
 ### Updates and improvements
-There are still some things to check off before we feel "done" with this project (if you're ever done with anything) and that would primarily be:
-* This
-* That
-* Oh and that too
-* Let me just adjust this, then we're ok
+This application as a whole has endless possibilities and we would like to list some of them to get you as excited about Co-Ping as wer are.
+
+##### Image Upload
+A big part of this application involves trust as it should, but we also want to offer features for administrative parts such as providing your Ponger with a copy of your receipt. This could be uploaded when you've closed your shopping trip and want to send the total amount back to your neighbor. The total amount would then be delivered to the Ponger's account together with the image of the receipt.
+
+##### Monetization
+Our monetization plan for this app starts with cooperatives and community organizations paying a yearly subscription fee. This would ultimately be paid online by submitting details through third party API's such as Paypal or Klarna B2B.
+
+##### Points and ratings
+At the moment the person who needs something benefits more from this application than the shopper, should the favour not be returned. Therefor we would like to implement a ratings system where the person doing favours gets points and comments from their neighbors. This way a person who is doing favours gets something back that inspires them to keep going.
+
+##### Geo Location
+The app started out targeting cooperations, clusters of people living super close to each other but never really talking or getting to know each other. They would be connected through a co-op manager or board member and allowed access to the building account. Our next step is to let these people widen their network by choosing how many houses in their close proximity they want to be accessible to for pings and pongs. This we more people can help each other, save time, money and reduce overall consumption by co-shopPing.
+
+##### Coop- Chat and Contact List
+Apart from the shopping features we would like to inspire people to keep communicating by offering a chat for the entire building as well as a contact list to easily get in touch with one another and start conversations.
 
 ### Authors
 These are the people behind this amazing application:
@@ -88,8 +99,6 @@ These are the people behind this amazing application:
 We would like to show our appreciation to the following people and places
 * [Thomas Ochman](https://github.com/tochman) for helping us out with bug hunts
 * [Aditya Naik](https://github.com/kianaditya) for supporting us during our swish implementation phase
-* [This website]() that got us through this huge bug hunt
-* [This YouTube video]() which taught us some new stuff
 
 ### License
 We operate under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
