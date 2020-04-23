@@ -81,11 +81,14 @@ Our monetization plan for this app starts with cooperatives and community organi
 ##### Points and ratings
 At the moment the person who needs something benefits more from this application than the shopper, should the favour not be returned. Therefor we would like to implement a ratings system where the person doing favours gets points and comments from their neighbors. This way a person who is doing favours gets something back that inspires them to keep going.
 
-##### Geo Location
-The app started out targeting cooperations, clusters of people living super close to each other but never really talking or getting to know each other. They would be connected through a co-op manager or board member and allowed access to the building account. Our next step is to let these people widen their network by choosing how many houses in their close proximity they want to be accessible to for pings and pongs. This we more people can help each other, save time, money and reduce overall consumption by co-shopPing.
+##### Local Services
+As a service to the coop signing up for the subscription we would like to make local, coop-related companies available to them for hire. The coop-admin would then be able to create a Ping of what type of service they need taken care of, such as gardening or fixing electricity. The local vendors would then respond with a pong including an offer the admin then could accept or decline.
 
 ##### Coop- Chat and Contact List
 Apart from the shopping features we would like to inspire people to keep communicating by offering a chat for the entire building as well as a contact list to easily get in touch with one another and start conversations.
+
+##### Geo Location
+The app started out targeting cooperations, clusters of people living super close to each other but never really talking or getting to know each other. They would be connected through a co-op manager or board member and allowed access to the building account. Our next step is to let these people widen their network by choosing how many houses in their close proximity they want to be accessible to for pings and pongs. This we more people can help each other, save time, money and reduce overall consumption by co-shopPing.
 
 ### Authors
 These are the people behind this amazing application:
