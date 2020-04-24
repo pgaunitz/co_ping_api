@@ -1,8 +1,7 @@
-Community.create name: 'The best community ever', code: 'Hqxx5Uk5evmD'  
-User.create email: 'betty@mail.com', password: 'password', role: 'user', name: 'Betty Baconsson', community_id: 1, community_status: 'accepted', phone_number: '123456789', address: 'Baconstreet 37 floor 2'
-User.create email: 'possum@mail.com', password: 'password', role: 'user', name: 'Awesome Possumsson', community_id: 1, community_status: 'accepted', phone_number: '98765321', address: 'Baconstreet 37 floor 1'
-User.create email: 'user@mail.com', password: 'password', role: 'user', name: 'User Usersson', community_id: 1, community_status: 'accepted', phone_number: '38956789', address: 'Baconstreet 37 floor 3'
-User.create email: 'admin@mail.com', password: 'password', role: 'admin', name: 'Admin Adminsson', community_id: 1, community_status: 'accepted', phone_number: '38956789', address: 'Baconstreet 37 floor 10'
-User.create email: 'pungrattan@mail.com', password: 'password', role: 'user', name: 'Pungråttan Pungråttzon', community_id: 1, community_status: 'pending', phone_number: '38956789', address: 'Baconstreet 37 basement'
-Ping.create time: '2020-06-30 15:00', store: 'Systembolaget', active: true, user_id: 1
-Ping.create time: '2020-05-22 18:00', store: 'ICA', active: true, user_id: 2
+Community.create name: 'Craft Academy', code: 'Hqxx5Uk5evmD'
+User.create email: 'johan@mail.com', password: 'password', role: 'user', name: 'Johan Bounce', community_id: 1, community_status: 'accepted', phone_number: '070- 123 98 76', address: 'Isafjordsgatan 21, 164 40 Kista'
+User.create email: 'philip@mail.com', password: 'password', role: 'user', name: 'Philip Gaunitz', community_id: 1, community_status: 'accepted', phone_number: '073- 246 12 56', address: 'Isafjordsgatan 21, 164 40 Kista'
+User.create email: 'emma@mail.com', password: 'password', role: 'user', name: 'Emma Thalen', community_id: 1, community_status: 'pending', phone_number: '070- 987 12 34', address: 'Isafjordsgatan 21, 164 40 Kista'
+User.create email: 'karro@mail.com', password: 'password', role: 'user', name: 'Karro Frostare', community_id: 1, community_status: 'pending', phone_number: '076- 567 12 89', address: 'Isafjordsgatan 21, 164 40 Kista'
+User.create email: 'admin@mail.com', password: 'password', role: 'admin', name: 'Thomas Ochman', community_id: 1, community_status: 'accepted', phone_number: '073- 468 97 53', address: 'Isafjordsgatan 21, 164 40 Kista'
+Ping.create time: '2020-25-30 17:00', store: 'Ica', active: true, user_id: 2
