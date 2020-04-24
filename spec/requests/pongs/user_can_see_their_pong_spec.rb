@@ -17,6 +17,12 @@ RSpec.describe 'GET /pongs', type: :request do
     it 'return last pong' do
       expect(response_json['pong']['item1']).to eq 'smör'
     end
+    
+    it 'return pingers phone number' do
+      ping_phone = User.all.find(Ping.all.find(pong.ping_id).user_id).phone_number
+      expect(response_json['pong']['ping_phone']).to eq ping_phone
+    end
+
   end
 
   describe 'returns message if there are no pongs' do
