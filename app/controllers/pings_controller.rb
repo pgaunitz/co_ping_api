@@ -31,6 +31,7 @@ class PingsController < ApplicationController
   def update
     if params['ping']['completed']
       @requested_ping.update(completed: true)
+      @requested_ping.update(active: false)
       @requested_ping.pongs.update(active: false)
       render json: { message: 'Your trip is completed' }
     else
