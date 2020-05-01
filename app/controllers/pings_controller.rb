@@ -48,7 +48,7 @@ class PingsController < ApplicationController
     if @ping.pongs.any?
       render json: @ping, serializer: PingShowSerializer
     else
-      render json: { message: 'Your shopping bag looks light!' }
+      render json: { message: 'Your shopping bag looks light!', ping_id: @ping.id }
     end
   end
 

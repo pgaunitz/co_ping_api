@@ -40,8 +40,9 @@ RSpec.describe 'GET /pings/:id', type: :request do
 
     before { get "/pings/#{user.id}", headers: user_headers }
 
-    it 'returns message' do
+    it 'returns message and ping id' do
       expect(response_json['message']).to eq 'Your shopping bag looks light!'
+      expect(response_json['ping_id']).to eq ping.id
     end
   end
 
