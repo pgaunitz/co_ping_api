@@ -1,4 +1,4 @@
-# Co-Ping (API) [![Coverage Status](https://coveralls.io/repos/github/pgaunitz/co_ping_api/badge.svg?branch=development)](https://coveralls.io/github/pgaunitz/co_ping_api?branch=development)[![Build Status](https://travis-ci.org/pgaunitz/co_ping_api.svg?branch=development)](https://travis-ci.org/pgaunitz/co_ping_api)
+# Co-Ping (API) [![Coverage Status](https://coveralls.io/repos/github/pgaunitz/co_ping_api/badge.svg?branch=development)](https://coveralls.io/github/pgaunitz/co_ping_api?branch=development)[![Build Status](https://travis-ci.com/pgaunitz/co_ping_api.svg?branch=development)](https://travis-ci.com/pgaunitz/co_ping_api))
 
 ![Co-ping image](./public/copingWide.png)
 
