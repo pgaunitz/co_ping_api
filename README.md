@@ -1,4 +1,4 @@
-# Co-Ping (API) [![Coverage Status](https://coveralls.io/repos/github/CraftAcademy/co_ping_api/badge.svg?branch=development)](https://coveralls.io/github/CraftAcademy/co_ping_api?branch=development) [![Build Status](https://semaphoreci.com/api/v1/pgaunitz/co_ping_api/branches/development/badge.svg)](https://semaphoreci.com/pgaunitz/co_ping_api)[![Build Status](https://travis-ci.org/pgaunitz/co_ping_api.svg?branch=development)](https://travis-ci.org/pgaunitz/co_ping_api)
+# Co-Ping (API) [![Coverage Status](https://coveralls.io/repos/github/pgaunitz/co_ping_api/badge.svg?branch=development)](https://coveralls.io/github/pgaunitz/co_ping_api?branch=development)[![Build Status](https://travis-ci.org/pgaunitz/co_ping_api.svg?branch=development)](https://travis-ci.org/pgaunitz/co_ping_api)
 
 ![Co-ping image](./public/copingWide.png)
 
